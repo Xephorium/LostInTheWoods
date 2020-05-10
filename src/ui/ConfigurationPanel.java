@@ -37,10 +37,8 @@ public class ConfigurationPanel extends JPanel {
         this.setBackground(WoodsColor.WINDOW_BACKGROUND_COLOR);
         this.setBorder(BorderFactory.createCompoundBorder(
                 new EmptyBorder(0, BORDER_PADDING, BORDER_PADDING, BORDER_PADDING),
-                BorderFactory.createLineBorder(
-                        WoodsColor.WINDOW_BORDER_COLOR,
-                        BORDER_WIDTH
-                )));
+                BorderFactory.createMatteBorder(1, 0, 1, 0, WoodsColor.WINDOW_BORDER_COLOR)
+        ));
         this.setPreferredSize(new Dimension(0, PANEL_HEIGHT));
         this.add(createBlankPanel(), BorderLayout.CENTER);
     }

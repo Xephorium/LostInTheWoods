@@ -4,6 +4,7 @@ import ui.res.WoodsColor;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 
 /* Title:          Lost Woods
@@ -46,6 +47,7 @@ public class GridPanel extends JPanel {
     private JPanel createBlankPanel() {
         JPanel emptyPanel = new JPanel();
         emptyPanel.setBackground(Color.WHITE);
+        emptyPanel.setBorder(BorderFactory.createLineBorder(WoodsColor.WINDOW_BORDER_COLOR, BORDER_WIDTH));
         emptyPanel.setPreferredSize(new Dimension(415,415));
         return emptyPanel;
     }
