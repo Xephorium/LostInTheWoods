@@ -8,8 +8,6 @@ import java.util.Random;
 
 /* Title:          Lost Woods
  * This File:      LostWoods.java
- * Other Files:    Main.java (Contains Main)
- *                 Explorer.java (Contains Explorer Model)
  * Team Name:      Aerosol Strike Force
  * Developers:     Chris Cruzen, James Brown, Alec Grizzell, Jacob Brown
  * Dev Emails:     cac6g3@mail.umsl.edu, alecgrizzell@gmail.com
