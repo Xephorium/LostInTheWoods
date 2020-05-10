@@ -1,4 +1,4 @@
-package utility;
+package ui.utility;
 
 import java.awt.*;
 
@@ -11,7 +11,7 @@ import java.awt.*;
  * Date:           05.10.2020
  * Description:
  *
- *   DisplayUtility is a simple utility class that encapsulates the retrieval
+ *   DisplayUtility is a simple ui.utility class that encapsulates the retrieval
  * of common display information.
  */
 
