@@ -1,4 +1,5 @@
 import simulation.LostWoods;
+import ui.WoodsWindow;
 
 /* Title:          Lost Woods
  * This File:      Main.java
@@ -19,7 +20,11 @@ public class Main {
     public static void main(String[] args) {
 
         // Create simulation.LostWoods Class & Run Simulation
-        LostWoods lostWoods = new LostWoods();
-        lostWoods.runSimulation();
+        //LostWoods lostWoods = new LostWoods();
+        //lostWoods.runSimulation();
+
+        // Create WoodsWindow & Display
+        WoodsWindow woodsWindow = new WoodsWindow();
+        woodsWindow.displayWindow();
     }
 }
