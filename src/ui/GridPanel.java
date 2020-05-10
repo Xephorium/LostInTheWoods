@@ -49,29 +49,39 @@ public class GridPanel extends JPanel {
         // Setup 2D Graphics
         Graphics2D graphics = (Graphics2D) g;
 
+        // Determine Grid Constants
+        int max = width;
+        if (height > max) max = height;
+        int drawWidth = (this.getSize().width / max) * max;
+        int drawHeight = (this.getSize().height / max) * max;
+        int squareWidth = drawWidth / max;
+        int squareHeight = drawHeight / max;
+        int startX = (drawWidth - (width * squareWidth)) / 2;
+        int endX = startX + (width * squareWidth);
+        int startY = (drawHeight - (height * squareHeight)) / 2;
+        int endY = startY + (height * squareHeight);
+
         // Draw Background
-        int actualWidth = (this.getSize().width / width) * width;
-        int actualHeight = (this.getSize().height / height) * height;
         graphics.setColor(Color.WHITE);
-        graphics.fillRect(0, 0, actualWidth, actualHeight);
+        graphics.fillRect(startX, startY, squareWidth * width, squareHeight * height);
 
         // Draw Grid
         int lineWidth = 1;
         graphics.setColor(WoodsColor.WINDOW_BORDER_COLOR);
         graphics.setStroke(new BasicStroke(lineWidth));
-        int positionX = lineWidth / 2;
+        int positionX = startX + lineWidth / 2;
         for(int x = 0; x < width + 1; x++) {
-            Line2D line = new Line2D.Float(positionX, 0, positionX, actualHeight);
+            Line2D line = new Line2D.Float(positionX, startY, positionX, endY);
             graphics.draw(line);
-            positionX += actualWidth / width;
+            positionX += squareWidth;
         }
-        int positionY = lineWidth / 2;
+        int positionY = startY + lineWidth / 2;
         for(int y = 0; y < height + 1; y++) {
-            Line2D line = new Line2D.Float(0, positionY, actualWidth, positionY);
+            Line2D line = new Line2D.Float(startX, positionY, endX, positionY);
             graphics.draw(line);
-            positionY += actualHeight / height;
+            positionY += squareHeight;
         }
 
-
+        // TODO - Draw Players
     }
 }
