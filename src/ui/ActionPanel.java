@@ -24,7 +24,7 @@ public class ActionPanel extends JPanel {
 
 /*--- Variable Declarations ---*/
 
-    private static final int BORDER_PADDING = 4;
+    private static final int BORDER_PADDING_HORIZONTAL = 10;
     private static final int PANEL_HEIGHT = 80;
     private JButton stopButton;
     private JButton runButton;
@@ -36,7 +36,12 @@ public class ActionPanel extends JPanel {
         super(new FlowLayout(FlowLayout.RIGHT));
 
         this.setBackground(WoodsColor.WINDOW_BACKGROUND_COLOR);
-        this.setBorder(new EmptyBorder(0, BORDER_PADDING, BORDER_PADDING, BORDER_PADDING));
+        this.setBorder(new EmptyBorder(
+                0,
+                BORDER_PADDING_HORIZONTAL,
+                0,
+                BORDER_PADDING_HORIZONTAL
+        ));
         this.setPreferredSize(new Dimension(0, PANEL_HEIGHT));
         this.add(createStopButton());
         this.add(createRunButton());

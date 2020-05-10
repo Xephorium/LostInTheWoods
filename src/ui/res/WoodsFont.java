@@ -16,7 +16,9 @@ package ui.res;
 import java.awt.*;
 
 public class WoodsFont {
-    private static final int FONT_SIZE_LARGE = 20;
+    private static final int FONT_SIZE_MEDIUM = 19;
+    private static final int FONT_SIZE_LARGE = 22;
 
+    public static final Font TEXT_FONT = new Font("Arial", Font.PLAIN, FONT_SIZE_MEDIUM);
     public static final Font BUTTON_FONT = new Font("Arial", Font.PLAIN, FONT_SIZE_LARGE);
 }
