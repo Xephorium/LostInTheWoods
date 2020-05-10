@@ -35,12 +35,7 @@ public class GridPanel extends JPanel {
         super();
 
         this.setBackground(WoodsColor.WINDOW_BACKGROUND_COLOR);
-        this.setBorder(BorderFactory.createCompoundBorder(
-                        new EmptyBorder(BORDER_PADDING, BORDER_PADDING, BORDER_PADDING, BORDER_PADDING),
-                        BorderFactory.createLineBorder(
-                                WoodsColor.WINDOW_BORDER_COLOR,
-                                BORDER_WIDTH
-                        )));
+        this.setBorder(new EmptyBorder(BORDER_PADDING, BORDER_PADDING, BORDER_PADDING, BORDER_PADDING));
         this.setPreferredSize(new Dimension(0, PANEL_HEIGHT));
         this.add(createBlankPanel(), BorderLayout.CENTER);
     }
