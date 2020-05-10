@@ -1,6 +1,7 @@
 package ui;
 
 import ui.res.WoodsColor;
+import ui.res.WoodsFont;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -23,20 +24,22 @@ public class ActionPanel extends JPanel {
 
 /*--- Variable Declarations ---*/
 
-    private static final int BORDER_WIDTH = 1;
-    private static final int BORDER_PADDING = 10;
+    private static final int BORDER_PADDING = 4;
     private static final int PANEL_HEIGHT = 80;
+    private JButton stopButton;
+    private JButton runButton;
 
 
     /*--- Constructor ---*/
 
     public ActionPanel() {
-        super();
+        super(new FlowLayout(FlowLayout.RIGHT));
 
         this.setBackground(WoodsColor.WINDOW_BACKGROUND_COLOR);
         this.setBorder(new EmptyBorder(0, BORDER_PADDING, BORDER_PADDING, BORDER_PADDING));
         this.setPreferredSize(new Dimension(0, PANEL_HEIGHT));
-        this.add(createBlankPanel(), BorderLayout.CENTER);
+        this.add(createStopButton());
+        this.add(createRunButton());
     }
 
 
@@ -45,7 +48,24 @@ public class ActionPanel extends JPanel {
     private JPanel createBlankPanel() {
         JPanel emptyPanel = new JPanel();
         emptyPanel.setBackground(WoodsColor.WINDOW_BACKGROUND_COLOR);
+        emptyPanel.setPreferredSize(new Dimension(1000, 10)); // Note: max width to force buttons right
         return emptyPanel;
+    }
+
+    private JButton createStopButton() {
+        stopButton = new JButton("Stop");
+        stopButton.setPreferredSize(new Dimension(200, 60));
+        stopButton.setFont(WoodsFont.BUTTON_FONT);
+        //runButton.addActionListener(actionEvent -> listener.handleWorkingProfileSaveClick(getWorkingProfile()));
+        return stopButton;
+    }
+
+    private JButton createRunButton() {
+        runButton = new JButton("Run");
+        runButton.setPreferredSize(new Dimension(200, 60));
+        runButton.setFont(WoodsFont.BUTTON_FONT);
+        //runButton.addActionListener(actionEvent -> listener.handleWorkingProfileSaveClick(getWorkingProfile()));
+        return runButton;
     }
 }
 
