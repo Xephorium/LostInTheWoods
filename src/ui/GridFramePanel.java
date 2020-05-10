@@ -45,8 +45,7 @@ public class GridFramePanel extends JPanel {
 
     private GridPanel createGridPanel() {
         GridPanel gridPanel = new GridPanel();
-        gridPanel.setBackground(Color.WHITE);
-        gridPanel.setPreferredSize(new Dimension(415,415));
+        gridPanel.setPreferredSize(new Dimension(410,410));
         return gridPanel;
     }
 }
