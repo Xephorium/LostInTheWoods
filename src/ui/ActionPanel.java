@@ -1,5 +1,6 @@
 package ui;
 
+import ui.WoodsWindow.WoodsWindowListener;
 import ui.res.WoodsColor;
 import ui.res.WoodsFont;
 
@@ -26,15 +27,18 @@ public class ActionPanel extends JPanel {
 
     private static final int BORDER_PADDING_HORIZONTAL = 10;
     private static final int PANEL_HEIGHT = 80;
+
+    private WoodsWindowListener listener;
     private JButton stopButton;
     private JButton runButton;
 
 
     /*--- Constructor ---*/
 
-    public ActionPanel() {
+    public ActionPanel(WoodsWindowListener listener) {
         super(new FlowLayout(FlowLayout.RIGHT));
 
+        this.listener = listener;
         this.setBackground(WoodsColor.WINDOW_BACKGROUND_COLOR);
         this.setBorder(new EmptyBorder(
                 0,
@@ -61,7 +65,7 @@ public class ActionPanel extends JPanel {
         stopButton = new JButton("Stop");
         stopButton.setPreferredSize(new Dimension(200, 60));
         stopButton.setFont(WoodsFont.BUTTON_FONT);
-        //runButton.addActionListener(actionEvent -> listener.handleWorkingProfileSaveClick(getWorkingProfile()));
+        stopButton.addActionListener(actionEvent -> listener.onStop());
         return stopButton;
     }
 
@@ -69,7 +73,7 @@ public class ActionPanel extends JPanel {
         runButton = new JButton("Run");
         runButton.setPreferredSize(new Dimension(200, 60));
         runButton.setFont(WoodsFont.BUTTON_FONT);
-        //runButton.addActionListener(actionEvent -> listener.handleWorkingProfileSaveClick(getWorkingProfile()));
+        runButton.addActionListener(actionEvent -> listener.onStart());
         return runButton;
     }
 }

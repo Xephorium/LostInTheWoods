@@ -1,5 +1,6 @@
 import simulation.LostWoods;
 import ui.WoodsWindow;
+import ui.WoodsWindow.WoodsWindowListener;
 
 /* Title:          Lost Woods
  * This File:      Main.java
@@ -24,7 +25,47 @@ public class Main {
         //lostWoods.runSimulation();
 
         // Create WoodsWindow & Display
-        WoodsWindow woodsWindow = new WoodsWindow();
+        WoodsWindow woodsWindow = new WoodsWindow(new WoodsWindowListener() {
+            @Override
+            public void onVersionChange(int index) {
+                System.out.println(index);
+            }
+
+            @Override
+            public void onSpeedChange(int factor) {
+                System.out.println(factor);
+            }
+
+            @Override
+            public void onPlayerCountChange(int count) {
+                System.out.println(count);
+            }
+
+            @Override
+            public void onGridWidthChange(int width) {
+                System.out.println(width);
+            }
+
+            @Override
+            public void onGridHeightChange(int height) {
+                System.out.println(height);
+            }
+
+            @Override
+            public void onSearchMethodChange(int index) {
+                System.out.println(index);
+            }
+
+            @Override
+            public void onStop() {
+                System.out.println("Stop");
+            }
+
+            @Override
+            public void onStart() {
+                System.out.println("Start");
+            }
+        });
         woodsWindow.displayWindow();
     }
 }

@@ -23,10 +23,10 @@ public class WoodsWindow {
 
     /*--- Variables ---*/
 
-    //private ArmoryWindowListener listener;
     private static final int WINDOW_WIDTH = 1000;
     private static final int WINDOW_HEIGHT = 800;
 
+    private WoodsWindowListener listener;
     private JFrame frame;
     private GridPanel gridPanel;
     private ConfigurationPanel configurationPanel;
@@ -35,7 +35,8 @@ public class WoodsWindow {
 
     /*--- Constructor ---*/
 
-    public WoodsWindow() {
+    public WoodsWindow(WoodsWindowListener listener) {
+        this.listener = listener;
 
         setGlobalLookAndFeel();
         initializeFrameAttributes();
@@ -78,7 +79,21 @@ public class WoodsWindow {
 
     private void initializeViewClasses() {
         gridPanel = new GridPanel();
-        configurationPanel = new ConfigurationPanel();
-        actionPanel = new ActionPanel();
+        configurationPanel = new ConfigurationPanel(listener);
+        actionPanel = new ActionPanel(listener);
+    }
+
+
+    /*--- Woods Window Listener ---*/
+
+    public interface WoodsWindowListener {
+        public void onVersionChange(int index);
+        public void onSpeedChange(int factor);
+        public void onPlayerCountChange(int count);
+        public void onGridWidthChange(int width);
+        public void onGridHeightChange(int height);
+        public void onSearchMethodChange(int index);
+        public void onStop();
+        public void onStart();
     }
 }

@@ -1,10 +1,13 @@
 package ui;
 
+import ui.WoodsWindow.WoodsWindowListener;
 import ui.res.WoodsColor;
 import ui.res.WoodsFont;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 
 /* Title:          Lost Woods
@@ -29,12 +32,15 @@ public class ConfigurationPanel extends JPanel {
     private static final int BORDER_PADDING = 17;
     private static final int PANEL_HEIGHT = 100;
 
+    private WoodsWindowListener listener;
+
 
     /*--- Constructor ---*/
 
-    public ConfigurationPanel() {
+    public ConfigurationPanel(WoodsWindowListener listener) {
         super();
 
+        this.listener = listener;
         this.setBackground(WoodsColor.WINDOW_BACKGROUND_COLOR);
         this.setBorder(BorderFactory.createCompoundBorder(
                 new EmptyBorder(0, BORDER_PADDING, BORDER_PADDING - 5, BORDER_PADDING),
@@ -77,7 +83,7 @@ public class ConfigurationPanel extends JPanel {
         versionDropdown.setMaximumSize(new Dimension(300, 35));
         versionDropdown.addActionListener(e -> {
             JComboBox dropdown = (JComboBox) e.getSource();
-            // TODO - Handle Select Event
+            listener.onVersionChange(dropdown.getSelectedIndex());
         });
         versionPanel.add(versionDropdown);
 
@@ -105,10 +111,9 @@ public class ConfigurationPanel extends JPanel {
         speedField.setPreferredSize(new Dimension(30, 30));
         speedField.setText("1");
         speedField.setHorizontalAlignment(JTextField.CENTER);
-        speedField.addActionListener(e -> {
-            JTextField textField = (JTextField) e.getSource();
-            // TODO - Handle
-        });
+        speedField.getDocument().addDocumentListener(getIntegerTextValidator(speedField, 1, 10, integer -> {
+            listener.onSpeedChange(integer);
+        }));
         speedPanel.add(speedField);
 
         // Add Speed Panel
@@ -135,10 +140,9 @@ public class ConfigurationPanel extends JPanel {
         playerCountField.setPreferredSize(new Dimension(30, 30));
         playerCountField.setText("1");
         playerCountField.setHorizontalAlignment(JTextField.CENTER);
-        playerCountField.addActionListener(e -> {
-            JTextField textField = (JTextField) e.getSource();
-            // TODO - Handle
-        });
+        playerCountField.getDocument().addDocumentListener(getIntegerTextValidator(playerCountField, 1, 4, integer -> {
+            listener.onPlayerCountChange(integer);
+        }));
         playersPanel.add(playerCountField);
 
         // Add Version Panel
@@ -161,14 +165,13 @@ public class ConfigurationPanel extends JPanel {
         // Add Text Field to Grid Width Panel
         JTextField gridWidthField = new JTextField();
         gridWidthField.setFont(WoodsFont.TEXT_FONT);
-        gridWidthField.setMaximumSize(new Dimension(30, 30));
-        gridWidthField.setPreferredSize(new Dimension(30, 30));
+        gridWidthField.setMaximumSize(new Dimension(40, 30));
+        gridWidthField.setPreferredSize(new Dimension(40, 30));
         gridWidthField.setText("20");
         gridWidthField.setHorizontalAlignment(JTextField.CENTER);
-        gridWidthField.addActionListener(e -> {
-            JTextField textField = (JTextField) e.getSource();
-            // TODO - Handle
-        });
+        gridWidthField.getDocument().addDocumentListener(getIntegerTextValidator(gridWidthField, 1, 100, integer -> {
+            listener.onGridWidthChange(integer);
+        }));
         gridWidthPanel.add(gridWidthField);
 
         // Add Grid Width Panel
@@ -191,14 +194,13 @@ public class ConfigurationPanel extends JPanel {
         // Add Text Field to Grid Height Panel
         JTextField gridHeightField = new JTextField();
         gridHeightField.setFont(WoodsFont.TEXT_FONT);
-        gridHeightField.setMaximumSize(new Dimension(30, 30));
-        gridHeightField.setPreferredSize(new Dimension(30, 30));
+        gridHeightField.setMaximumSize(new Dimension(40, 30));
+        gridHeightField.setPreferredSize(new Dimension(40, 30));
         gridHeightField.setText("20");
         gridHeightField.setHorizontalAlignment(JTextField.CENTER);
-        gridHeightField.addActionListener(e -> {
-            JTextField textField = (JTextField) e.getSource();
-            // TODO - Handle
-        });
+        gridHeightField.getDocument().addDocumentListener(getIntegerTextValidator(gridHeightField, 1, 100, integer -> {
+            listener.onGridHeightChange(integer);
+        }));
         gridHeightPanel.add(gridHeightField);
 
         // Add Grid Height Panel
@@ -243,7 +245,7 @@ public class ConfigurationPanel extends JPanel {
         searchDropdown.setMaximumSize(new Dimension(300, 35));
         searchDropdown.addActionListener(e -> {
             JComboBox dropdown = (JComboBox) e.getSource();
-            // TODO - Handle Select Event
+            listener.onSearchMethodChange(dropdown.getSelectedIndex());
         });
         searchPanel.add(searchDropdown);
 
@@ -282,6 +284,41 @@ public class ConfigurationPanel extends JPanel {
         rightPanel.add(Box.createVerticalGlue());
 
         return rightPanel;
+    }
+
+
+    /*--- Validation ---*/
+
+    private DocumentListener getIntegerTextValidator(JTextField textField, int min, int max, IntegerTextValidationListener listener) {
+        return new DocumentListener() {
+            private boolean overriding = false;
+            public void changedUpdate(DocumentEvent e) { handle(); }
+            public void removeUpdate(DocumentEvent e) { handle(); }
+            public void insertUpdate(DocumentEvent e) { handle(); }
+            private void handle() {
+                if (!overriding) try {
+                    if (textField.getText().equals("")) return;
+                    int integer = Integer.parseInt(textField.getText());
+                    if (integer < min) resetField(min);
+                    else if (integer > max) resetField(max);
+                    else listener.onValid(integer);
+                } catch (Exception exception) {
+                    resetField(min);
+                }
+            }
+            private void resetField(int value) {
+                SwingUtilities.invokeLater(() -> {
+                    overriding = true;
+                    textField.setText("" + value);
+                    listener.onValid(value);
+                    overriding = false;
+                });
+            }
+        };
+    }
+
+    private interface IntegerTextValidationListener {
+        public void onValid(int integer);
     }
 }
 
