@@ -40,7 +40,7 @@ public class ConfigurationPanel extends JPanel {
         this.setBackground(WoodsColor.WINDOW_BACKGROUND_COLOR);
         this.setBorder(BorderFactory.createCompoundBorder(
                 new EmptyBorder(0, BORDER_PADDING, BORDER_PADDING - 5, BORDER_PADDING),
-                BorderFactory.createMatteBorder(1, 0, 1, 0, WoodsColor.WINDOW_BORDER_COLOR)
+                BorderFactory.createMatteBorder(BORDER_WIDTH, 0, BORDER_WIDTH, 0, WoodsColor.WINDOW_BORDER_COLOR)
         ));
         this.setPreferredSize(new Dimension(0, PANEL_HEIGHT));
         this.add(createLeftPanel(), BorderLayout.LINE_START);
@@ -73,7 +73,7 @@ public class ConfigurationPanel extends JPanel {
 
         // Add Dropdown to Version Panel
         String[] versions = { "Simple", "Intermediate", "Advanced" };
-        JComboBox versionDropdown = new JComboBox(versions);
+        JComboBox versionDropdown = new JComboBox<>(versions);
         versionDropdown.setSelectedIndex(0);
         versionDropdown.setFont(WoodsFont.TEXT_FONT);
         versionDropdown.setMaximumSize(new Dimension(300, 35));
@@ -239,7 +239,7 @@ public class ConfigurationPanel extends JPanel {
 
         // Add Dropdown to Movement Panel
         String[] searchMethods = { "Randomly", "New Locations" };
-        JComboBox searchDropdown = new JComboBox(searchMethods);
+        JComboBox searchDropdown = new JComboBox<>(searchMethods);
         searchDropdown.setSelectedIndex(0);
         searchDropdown.setFont(WoodsFont.TEXT_FONT);
         searchDropdown.setMaximumSize(new Dimension(300, 35));
