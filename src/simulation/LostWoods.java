@@ -1,19 +1,20 @@
+package simulation;
 
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 /* Title:          Lost Woods
  * This File:      LostWoods.java
  * Other Files:    Main.java (Contains Main)
  *                 Explorer.java (Contains Explorer Model)
- * Developer:      Chris Cruzen
- * Dev Email:      cac6g3@mail.umsl.edu
+ * Team Name:      Aerosol Strike Force
+ * Developers:     Chris Cruzen, James Brown, Alec Grizzell, Jacob Brown
+ * Dev Emails:     cac6g3@mail.umsl.edu, alecgrizzell@gmail.com
  * Course:         CS4500-02
- * Date:           02.03.2020
+ * Date:           05.10.2020
  * Description:
  *
  *   LostWoods is the primary driver of the Lost Woods simulation.
@@ -22,7 +23,7 @@ import java.util.Random;
  * journey.
  */
 
-class LostWoods {
+public class LostWoods {
 
 
     /*--- Variable Declarations ---*/
@@ -69,7 +70,7 @@ class LostWoods {
 
     /*--- Constructor ---*/
 
-    LostWoods() {
+    public LostWoods() {
 
         // Initialize Input Variables
         bufferedReader = new BufferedReader(new InputStreamReader(System.in));
@@ -91,7 +92,7 @@ class LostWoods {
      *   including welcoming, prompting for grid dimensions, setting up
      *   the simulation, and printing the results.
      */
-    void runSimulation() {
+    public void runSimulation() {
 
         // Print Welcome
         System.out.println(WELCOME);

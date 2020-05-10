@@ -1,3 +1,4 @@
+package simulation;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -7,10 +8,11 @@ import java.util.List;
  * This File:      Explorer.java
  * Other Files:    Main.java (Contains Main)
  *                 LostWoods.java (Contains Simulation Logic)
- * Developer:      Chris Cruzen
- * Dev Email:      cac6g3@mail.umsl.edu
+ * Team Name:      Aerosol Strike Force
+ * Developers:     Chris Cruzen, James Brown, Alec Grizzell, Jacob Brown
+ * Dev Emails:     cac6g3@mail.umsl.edu, alecgrizzell@gmail.com
  * Course:         CS4500-02
- * Date:           02.03.2020
+ * Date:           05.10.2020
  * Description:
  *
  *   Explorer is a simple model class representing a single explorer
@@ -18,7 +20,7 @@ import java.util.List;
  * some metadata about their journey.
  */
 
-class Explorer {
+public class Explorer {
 
 
     /*--- Variable Declarations ---*/

@@ -4,7 +4,7 @@
 ./clean.sh
 
 # Compile Project (Targets Sent to "build" Directory)
-javac -d build src/Main.java src/LostWoods.java src/Explorer.java
+javac -d build src/*.java src/simulation/*.java
 
 # Print Update
 echo Project compiled.

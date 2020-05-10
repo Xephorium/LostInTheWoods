@@ -1,12 +1,14 @@
+import simulation.LostWoods;
 
 /* Title:          Lost Woods
  * This File:      Main.java
  * Other Files:    LostWoods.java (Contains Simulation Logic)
  *                 Explorer.java (Contains Explorer Model)
- * Developer:      Chris Cruzen
- * Dev Email:      cac6g3@mail.umsl.edu
+ * Team Name:      Aerosol Strike Force
+ * Developers:     Chris Cruzen, James Brown, Alec Grizzell, Jacob Brown
+ * Dev Emails:     cac6g3@mail.umsl.edu, alecgrizzell@gmail.com
  * Course:         CS4500-02
- * Date:           02.03.2020
+ * Date:           05.10.2020
  * Description:
  *
  *   Main is a simple container class for the Lost Woods program.
@@ -18,7 +20,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // Create LostWoods Class & Run Simulation
+        // Create simulation.LostWoods Class & Run Simulation
         LostWoods lostWoods = new LostWoods();
         lostWoods.runSimulation();
     }
