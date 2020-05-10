@@ -1,11 +1,6 @@
 package ui;
 
-import ui.res.WoodsColor;
-
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-import java.awt.*;
 
 /* Title:          Lost Woods
  * This File:      GridPanel.java
@@ -16,8 +11,8 @@ import java.awt.*;
  * Date:           05.10.2020
  * Description:
  *
- *   GridPanel is the uppermost section of the WoodsWindow interface and contains
- * a visual representation of the exploration grid.
+ *   GridPanel is the visual core of the Lost Woods simulation. It draws a real-time grid
+ * representing the woods and each player in their current position.
  */
 
 public class GridPanel extends JPanel {
@@ -25,31 +20,10 @@ public class GridPanel extends JPanel {
 
     /*--- Variable Declarations ---*/
 
-    private static final int BORDER_WIDTH = 1;
-    private static final int BORDER_PADDING = 10;
-    private static final int PANEL_HEIGHT = 450;
-
 
     /*--- Constructor ---*/
 
     public GridPanel() {
         super();
-
-        this.setBackground(WoodsColor.WINDOW_BACKGROUND_COLOR);
-        this.setBorder(new EmptyBorder(BORDER_PADDING, BORDER_PADDING, BORDER_PADDING, BORDER_PADDING));
-        this.setPreferredSize(new Dimension(0, PANEL_HEIGHT));
-        this.add(createBlankPanel(), BorderLayout.CENTER);
-    }
-
-
-    /*--- Private Setup Methods ---*/
-
-    private JPanel createBlankPanel() {
-        JPanel emptyPanel = new JPanel();
-        emptyPanel.setBackground(Color.WHITE);
-        emptyPanel.setBorder(BorderFactory.createLineBorder(WoodsColor.WINDOW_BORDER_COLOR, BORDER_WIDTH));
-        emptyPanel.setPreferredSize(new Dimension(415,415));
-        return emptyPanel;
     }
 }
-

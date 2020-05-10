@@ -28,7 +28,7 @@ public class WoodsWindow {
 
     private WoodsWindowListener listener;
     private JFrame frame;
-    private GridPanel gridPanel;
+    private GridFramePanel gridFramePanel;
     private ConfigurationPanel configurationPanel;
     private ActionPanel actionPanel;
 
@@ -42,7 +42,7 @@ public class WoodsWindow {
         initializeFrameAttributes();
         initializeViewClasses();
 
-        frame.add(gridPanel, BorderLayout.PAGE_START);
+        frame.add(gridFramePanel, BorderLayout.PAGE_START);
         frame.add(configurationPanel, BorderLayout.CENTER);
         frame.add(actionPanel, BorderLayout.PAGE_END);
     }
@@ -78,7 +78,7 @@ public class WoodsWindow {
     }
 
     private void initializeViewClasses() {
-        gridPanel = new GridPanel();
+        gridFramePanel = new GridFramePanel();
         configurationPanel = new ConfigurationPanel(listener);
         actionPanel = new ActionPanel(listener);
     }

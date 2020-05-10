@@ -18,4 +18,5 @@ import java.awt.*;
 public class WoodsColor {
     public static final Color WINDOW_BACKGROUND_COLOR = new Color(240, 240, 240);
     public static final Color WINDOW_BORDER_COLOR = new Color(200, 200, 200);
+    public static final Color GRID_BORDER_COLOR = new Color(70, 70, 70);
 }
