@@ -6,8 +6,6 @@ import ui.res.WoodsFont;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /* Title:          Lost Woods
  * This File:      ConfigurationPanel.java
