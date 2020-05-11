@@ -4,6 +4,7 @@ import java.awt.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Random;
 
 /* Title:          Lost Woods
@@ -26,41 +27,18 @@ public class LostWoods {
     /*--- Variable Declarations ---*/
 
     // State Constants
-    private static final int MIN_GRID_SIZE = 2;
-    private static final int MAX_GRID_SIZE = 50;
+    private static final long UPDATE_INTERVAL = 400;
     private static final int MAX_TIME = 1000000;
 
-    // Output Constants
-    private static final String WELCOME = "### Welcome to Lost Woods! ###\n\nPat and Chris are lost on a grid, the"
-        + " size of which is yours\nto determine. Let's find out whether they can find each other.\n";
-    private static final String REQUEST_WIDTH = "Enter grid width (integer of range "
-        + MIN_GRID_SIZE + "-" + MAX_GRID_SIZE + "): ";
-    private static final String REQUEST_HEIGHT = "Enter grid height (integer of range "
-            + MIN_GRID_SIZE + "-" + MAX_GRID_SIZE + "): ";
-    private static final String INPUT_EXCEPTION = "Exception reading input.";
-    private static final String INPUT_INVALID = "Invalid input. Please try again.";
-    private static final String GRID_SIZE = "Grid size set to (%d, %d).";
-    private static final String CONCLUSION_SUCCESS = "\nOh happy day! Pat and Chris found each other in cell (%d, %d) "
-            + "at time %d.\nThey may now wander these mysterious woods as friends.";
-    private static final String CONCLUSION_FAILURE = "\nPat and Chris remain lost after %d cycles of exploration.";
-    private static final String METADATA =
-              "\nSome Fun Facts:"
-            + "\n  Pat"
-            + "\n    Total Cells Explored:     %d (%.2f%% of Grid)"
-            + "\n    Total Distance Travelled: %d Cells"
-            + "\n  Chris"
-            + "\n    Total Cells Explored:     %d (%.2f%% of Grid)"
-            + "\n    Total Distance Travelled: %d Cells"
-            + "\n\nPress enter to exit.";
-
-    // Input Variables
-    private BufferedReader bufferedReader;
-
     // State Variables
+    private LostWoodsUpdateListener listener;
     private Random random;
-    private int time;
+    private long lastUpdate = 0;
+    private long endTime = 0;
+    private int timeFactor = 1;
     private int gridWidth;
     private int gridHeight;
+    private int playerCount;
     private ArrayList<Explorer> explorers;
     private boolean explorersFound;
 
@@ -69,12 +47,8 @@ public class LostWoods {
 
     public LostWoods() {
 
-        // Initialize Input Variables
-        bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-
         // Initialize State Variables
         random = new Random();
-        time = 0;
         gridWidth = 2;
         gridHeight = 2;
         explorers = new ArrayList<>();
@@ -84,115 +58,69 @@ public class LostWoods {
 
     /*--- Public Methods ---*/
 
-    /* Name: runSimulation()
-     * Description: Handles the base level program logic for Lost Woods,
-     *   including welcoming, prompting for grid dimensions, setting up
-     *   the simulation, and printing the results.
-     */
-    public void runSimulation() {
+    public void setUpdateListener(LostWoodsUpdateListener listener) {
+        this.listener = listener;
+    }
 
-        // Print Welcome
-        System.out.println(WELCOME);
+    public void setTimeFactor(int factor) {
+        this.timeFactor = factor;
+    }
 
-        // Request Grid Dimensions
-        gridWidth = requestInputDimension(REQUEST_WIDTH);
-        gridHeight = requestInputDimension(REQUEST_HEIGHT);
+    public void setGridSize(Point size) {
+        this.gridWidth = size.x;
+        this.gridHeight = size.y;
+    }
 
-        // Print Grid Size
-        System.out.println(String.format(GRID_SIZE, gridWidth, gridHeight));
+    public void setPlayerCount(int count) {
+        this.playerCount = count;
+    }
 
-        // Initialize Explorers
+    public void setPlayerPositions(ArrayList<Point> positions) {
+        explorers = new ArrayList<>();
+        for (int x = 0; x < playerCount + 1; x++) {
+            explorers.add(new Explorer(positions.get(x).x, positions.get(x).y));
+        }
+    }
+
+    public void beginSimulation() {
         initializeExplorers();
 
-        // Begin Exploration Simulation
-        simulateExploration();
+        // Simulate Exploration, Passing Updates to Listener Each Step
+        long time = (new Date()).getTime();
+        lastUpdate = time;
+        endTime = time + MAX_TIME;
+        while (time < endTime && !explorersFound) {
 
-        // Print Result
-        if (explorersFound) {
-            System.out.println(String.format(
-                    CONCLUSION_SUCCESS,
-                    explorers.get(0).getPosition().x,
-                    explorers.get(0).getPosition().y,
-                    time)
-            );
-        } else {
-            System.out.println(String.format(CONCLUSION_FAILURE, time));
-        }
+            // Update Time
+            time = (new Date()).getTime();
 
-        // Print Metadata
-        System.out.println(String.format(
-                METADATA,
-                explorers.get(0).getNumberOfCellsExplored(),
-                ((double) explorers.get(0).getNumberOfCellsExplored() / (gridWidth * gridHeight)) * 100.00,
-                explorers.get(0).getDistanceTravelled(),
-                explorers.get(1).getNumberOfCellsExplored(),
-                ((double) explorers.get(1).getNumberOfCellsExplored() / (gridWidth * gridHeight)) * 100.00,
-                explorers.get(1).getDistanceTravelled()
-        ));
+            if (time - lastUpdate > UPDATE_INTERVAL) {
 
-        // Await User Confirmation
-        try {
-            bufferedReader.readLine();
-        } catch (Exception exception) {
-            // Do Nothing
+                lastUpdate = time;
+
+                // Move Explorers
+                for (int x = 0; x < playerCount + 1; x++) {
+                    explorers.get(x).setPosition(getRandomMove(explorers.get(x).getPosition()));
+                }
+
+                // Perform Location Check
+                if (explorers.get(0).comparePositions(explorers.get(1))) {
+                    explorersFound = true;
+                }
+
+                // Update UI
+                ArrayList<Point> positions = new ArrayList<Point>();
+                for (int x = 0; x < playerCount + 1; x++) {
+                    positions.add(explorers.get(x).getPosition());
+                }
+                listener.onUpdate(positions);
+            }
         }
     }
 
 
     /*--- Private Methods ---*/
 
-    /* Name: requestInputDimension()
-     * Description: Handles the logic for requesting an integer value
-     *  from the user, validating that input, and repeating until a
-     *  legitimate value is provided.
-     */
-    private int requestInputDimension(String requestMessage) {
-
-        // Declare Local Variables
-        String input = "";
-        String errorMessage = "";
-        boolean inputInvalid = false;
-        int dimension = 2;
-
-        // Begin Input Loop
-        do {
-
-            // Reset Input
-            if (inputInvalid) {
-                System.out.println(errorMessage);
-                inputInvalid = false;
-            }
-
-            // Request Width
-            System.out.print(requestMessage);
-
-            try {
-
-                // Read & Parse Input
-                input = bufferedReader.readLine();
-                dimension = Integer.parseInt(input.trim());
-
-                // Perform Bounds Check
-                if (dimension < MIN_GRID_SIZE || dimension > MAX_GRID_SIZE) {
-                    errorMessage = INPUT_INVALID;
-                    inputInvalid = true;
-                }
-
-            } catch (Exception e) {
-
-                // Handle Exceptions
-                if (e instanceof NumberFormatException) {
-                    errorMessage = INPUT_INVALID;
-                } else {
-                    errorMessage = INPUT_EXCEPTION;
-                }
-                inputInvalid = true;
-            }
-
-        } while (inputInvalid);
-
-        return dimension;
-    }
 
     /* Name: initializeExplorers()
      * Description: Creates two explorers with initial positions
@@ -207,28 +135,7 @@ public class LostWoods {
         explorers.add(new Explorer(gridWidth - 1, gridHeight - 1));
     }
 
-    /* Name: simulateExploration()
-     * Description: Handles exploration simulation loop.
-     */
-    private void simulateExploration() {
 
-        // Begin Exploration Loop
-        while (time < MAX_TIME && !explorersFound) {
-
-            // Update Time
-            time++;
-
-            // Move Explorers
-            for (Explorer explorer : explorers) {
-                explorer.setPosition(getRandomMove(explorer.getPosition()));
-            }
-
-            // Perform Location Check
-            if (explorers.get(0).comparePositions(explorers.get(1))) {
-                explorersFound = true;
-            }
-        }
-    }
 
     /* Name: getRandomMove()
      * Description: Generates a valid random move given a current
@@ -298,5 +205,12 @@ public class LostWoods {
         } else {
             return lastPosition;
         }
+    }
+
+
+    /*--- LostWoodsUpdateListener Interface --- */
+
+    public interface LostWoodsUpdateListener {
+        public void onUpdate(ArrayList<Point> positions);
     }
 }

@@ -5,6 +5,7 @@ import ui.res.WoodsColor;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.util.ArrayList;
 
 /* Title:          Lost Woods
  * This File:      GridFramePanel.java
@@ -51,6 +52,10 @@ public class GridFramePanel extends JPanel {
 
     public void setPlayerCount(int count) {
         gridPanel.setPlayerCount(count);
+    }
+
+    public void setPlayerPositions(ArrayList<Point> positions) {
+        gridPanel.setPlayerPositions(positions);
     }
 
 

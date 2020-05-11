@@ -5,6 +5,7 @@ import ui.utility.DisplayUtility;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 /* Title:          Lost Woods
  * This File:      WoodsWindow.java
@@ -82,6 +83,10 @@ public class WoodsWindow {
     public void setPlayerCount(int count) {
         gridFramePanel.setPlayerCount(count);
         configurationPanel.setPlayerCount(count);
+    }
+
+    public void setPlayerPositions(ArrayList<Point> positions) {
+        gridFramePanel.setPlayerPositions(positions);
     }
 
 

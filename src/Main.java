@@ -4,6 +4,7 @@ import ui.WoodsWindow;
 import ui.WoodsWindow.WoodsWindowListener;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /* Title:          Lost Woods
  * This File:      Main.java
@@ -23,9 +24,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // Create simulation.LostWoods Class & Run Simulation
-        //LostWoods lostWoods = new LostWoods();
-        //lostWoods.runSimulation();
+        // Create Simulation
+        LostWoods lostWoods = new LostWoods();
 
         // Create Woods Window Listener
         WoodsWindow woodsWindow = new WoodsWindow();
@@ -77,6 +77,20 @@ public class Main {
         };
         woodsWindow.setListener(listener);
         woodsWindow.displayWindow();
+        woodsWindow.setPlayerCount(1);
         woodsWindow.setProgramVersion(ProgramVersion.Simple);
+
+        // Configure Simulation
+        lostWoods.setUpdateListener(positions -> {
+            woodsWindow.setPlayerPositions(positions);
+        });
+        lostWoods.setTimeFactor(1);
+        lostWoods.setGridSize(new Point(20, 20));
+        lostWoods.setPlayerCount(1);
+        ArrayList<Point> playerPositions = new ArrayList<>();
+        playerPositions.add(new Point(0, 0));
+        playerPositions.add(new Point(19, 19));
+        lostWoods.setPlayerPositions(playerPositions);
+        lostWoods.beginSimulation();
     }
 }

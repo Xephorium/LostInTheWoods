@@ -67,6 +67,13 @@ public class GridPanel extends JPanel {
         this.repaint();
     }
 
+    public void setPlayerPositions(ArrayList<Point> positions) {
+        for (int x = 0; x < playerCount; x++) {
+            playerPositions[x] = positions.get(x);
+        }
+        repaint();
+    }
+
 
     /*--- Draw Method ---*/
 
