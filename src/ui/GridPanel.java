@@ -68,7 +68,7 @@ public class GridPanel extends JPanel {
     }
 
     public void setPlayerPositions(ArrayList<Point> positions) {
-        for (int x = 0; x < playerCount; x++) {
+        for (int x = 0; x < playerCount + 1; x++) { // playerCount + 1; x++) {
             playerPositions[x] = positions.get(x);
         }
         repaint();

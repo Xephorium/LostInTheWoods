@@ -86,7 +86,7 @@ public class WoodsSimulator {
 
     public void setPlayerPositions(ArrayList<Point> positions) {
         explorers = new ArrayList<>();
-        for (int x = 0; x < playerCount + 1; x++) {
+        for (int x = 0; x < 1 + 1; x++) { // playerCount + 1; x++)
             explorers.add(new Explorer(positions.get(x).x, positions.get(x).y));
         }
     }
@@ -109,7 +109,7 @@ public class WoodsSimulator {
                 lastUpdate = time;
 
                 // Move Explorers
-                for (int x = 0; x < playerCount + 1; x++) {
+                for (int x = 0; x < 1 + 1; x++) { // playerCount + 1; x++) {
                     if (searchMethod == SearchMethod.Randomly) {
                         explorers.get(x).setPosition(getRandomMove(explorers.get(x).getPosition()));
                     } else {
@@ -124,7 +124,7 @@ public class WoodsSimulator {
 
                 // Update UI
                 ArrayList<Point> positions = new ArrayList<Point>();
-                for (int x = 0; x < playerCount + 1; x++) {
+                for (int x = 0; x < 1 + 1; x++) { // playerCount + 1; x++) {
                     positions.add(explorers.get(x).getPosition());
                 }
                 listener.onUpdate(positions);

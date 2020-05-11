@@ -212,30 +212,30 @@ public class LostWoods {
 
     private ArrayList<Point> getExplorerPositions() {
         ArrayList<Point> positions = new ArrayList<Point>();
-        for (int x = 0; x < playerCount + 1; x++) {
+        for (int x = 0; x < 1 + 1; x++) { // playerCount + 1; x++) {
             positions.add(explorers.get(x).getPosition());
         }
-        return new ArrayList<>(positions.subList(0, playerCount + 1));
+        return new ArrayList<>(positions.subList(0, 1 + 1)); // playerCount + 1));
     }
 
     private ArrayList<Integer> getExplorerDistances() {
         ArrayList<Integer> distances = new ArrayList<Integer>();
-        for (int x = 0; x < playerCount + 1; x++) {
+        for (int x = 0; x < 1 + 1; x++) { // playerCount + 1; x++) {
             distances.add(explorers.get(x).getDistanceTravelled());
         }
-        return new ArrayList<>(distances.subList(0, playerCount + 1));
+        return new ArrayList<>(distances.subList(0, 1 + 1)); // playerCount + 1));
     }
 
     private ArrayList<Integer> getResetExplorerDistances() {
         ArrayList<Integer> distances = new ArrayList<Integer>();
-        for (int x = 0; x < playerCount + 1; x++) {
+        for (int x = 0; x < 1 + 1; x++) { // playerCount + 1; x++) {
             distances.add(0);
         }
-        return new ArrayList<>(distances.subList(0, playerCount + 1));
+        return new ArrayList<>(distances.subList(0, 1 + 1)); // playerCount + 1));
     }
 
     private void updateExplorerPositions(ArrayList<Point> positions) {
-        for (int x = 0; x < playerCount + 1; x++) {
+        for (int x = 0; x < 1 + 1; x++) { // playerCount + 1; x++) {
             explorers.get(x).setPosition(positions.get(x));
         }
     }
