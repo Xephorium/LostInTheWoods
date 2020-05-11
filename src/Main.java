@@ -28,32 +28,32 @@ public class Main {
         WoodsWindowListener listener = new WoodsWindowListener() {
             @Override
             public void onVersionChange(int index) {
-                System.out.println(index);
+                System.out.println("Version: " + index);
             }
 
             @Override
             public void onSpeedChange(int factor) {
-                System.out.println(factor);
+                System.out.println("Speed: " + factor);
             }
 
             @Override
             public void onPlayerCountChange(int count) {
-                System.out.println(count);
+                System.out.println("Players: " + count);
             }
 
             @Override
             public void onGridWidthChange(int width) {
-                System.out.println(width);
+                System.out.println("Grid Width: " + width);
             }
 
             @Override
             public void onGridHeightChange(int height) {
-                System.out.println(height);
+                System.out.println("Grid Height" + height);
             }
 
             @Override
             public void onSearchMethodChange(int index) {
-                System.out.println(index);
+                System.out.println("Search Method: " + index);
             }
 
             @Override
