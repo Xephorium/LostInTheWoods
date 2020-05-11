@@ -107,7 +107,7 @@ public class ConfigurationPanel extends JPanel {
     }
 
     public void setPlayerDistance(int player, int distance) {
-        playerDistanceFields[0].setText("" + distance);
+        playerDistanceFields[player].setText("" + distance);
     }
 
 
@@ -330,8 +330,8 @@ public class ConfigurationPanel extends JPanel {
 
             // Add Label to Player Distance Panel
             playerDistanceFields[x].setFont(WoodsFont.TEXT_FONT);
-            playerDistanceFields[x].setMaximumSize(new Dimension(30, 30));
-            playerDistanceFields[x].setPreferredSize(new Dimension(30, 30));
+            playerDistanceFields[x].setMaximumSize(new Dimension(50, 30));
+            playerDistanceFields[x].setPreferredSize(new Dimension(50, 30));
             playerDistanceFields[x].setText("0");
             playerPanel.add(playerDistanceFields[x]);
 

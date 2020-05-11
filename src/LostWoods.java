@@ -163,6 +163,7 @@ public class LostWoods {
             public void onUpdate(ArrayList<Point> positions) {
                 updateExplorerPositions(positions);
                 woodsWindow.setPlayerPositions(getExplorerPositions());
+                woodsWindow.setPlayerDistances(getExplorerDistances());
             }
 
             @Override
@@ -191,7 +192,15 @@ public class LostWoods {
         for (int x = 0; x < playerCount + 1; x++) {
             positions.add(explorers.get(x).getPosition());
         }
-        return positions;
+        return new ArrayList<>(positions.subList(0, playerCount + 1));
+    }
+
+    private ArrayList<Integer> getExplorerDistances() {
+        ArrayList<Integer> distances = new ArrayList<Integer>();
+        for (int x = 0; x < playerCount + 1; x++) {
+            distances.add(explorers.get(x).getDistanceTravelled());
+        }
+        return new ArrayList<>(distances.subList(0, playerCount + 1));
     }
 
     private void updateExplorerPositions(ArrayList<Point> positions) {

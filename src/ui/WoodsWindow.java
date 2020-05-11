@@ -91,6 +91,12 @@ public class WoodsWindow {
         gridFramePanel.setPlayerPositions(positions);
     }
 
+    public void setPlayerDistances(ArrayList<Integer> playerDistances) {
+        for (int x = 0; x < playerDistances.size(); x++) {
+            configurationPanel.setPlayerDistance(x, playerDistances.get(x));
+        }
+    }
+
 
     /*--- Private Methods --*/
 
