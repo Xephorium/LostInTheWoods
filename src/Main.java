@@ -77,5 +77,6 @@ public class Main {
         };
         woodsWindow.setListener(listener);
         woodsWindow.displayWindow();
+        woodsWindow.setProgramVersion(ProgramVersion.Simple);
     }
 }

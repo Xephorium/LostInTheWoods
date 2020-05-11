@@ -41,6 +41,9 @@ public class ConfigurationPanel extends JPanel {
     private JTextField gridWidthField;
     private JLabel gridHeightLabel;
     private JTextField gridHeightField;
+    private JLabel[] playerDistanceFields = {new JLabel(), new JLabel(), new JLabel(), new JLabel()};
+
+    private boolean updatingPlayerCount = false;
 
 
     /*--- Constructor ---*/
@@ -74,7 +77,9 @@ public class ConfigurationPanel extends JPanel {
     }
 
     public void setPlayerCount(int count) {
+        updatingPlayerCount = true;
         playerCountField.setText("" + (count + 1));
+        updatingPlayerCount = false;
     }
 
     public void showGridSize() {
@@ -94,6 +99,10 @@ public class ConfigurationPanel extends JPanel {
     public void setGridSize(Point size) {
         gridWidthField.setText("" + size.x);
         gridHeightField.setText("" + size.y);
+    }
+
+    public void setPlayerDistance(int player, int distance) {
+        playerDistanceFields[0].setText("" + distance);
     }
 
 
@@ -120,7 +129,7 @@ public class ConfigurationPanel extends JPanel {
         versionPanel.add(Box.createHorizontalGlue());
 
         // Add Dropdown to Version Panel
-        String[] versions = { "Simple", "Intermediate", "Advanced" };
+        String[] versions = { "Simple", "Intermediate" };
         JComboBox versionDropdown = new JComboBox<>(versions);
         versionDropdown.setSelectedIndex(0);
         versionDropdown.setFont(WoodsFont.TEXT_FONT);
@@ -185,7 +194,7 @@ public class ConfigurationPanel extends JPanel {
         playerCountField.setText("2");
         playerCountField.setHorizontalAlignment(JTextField.CENTER);
         playerCountField.getDocument().addDocumentListener(getIntegerTextValidator(playerCountField, 2, 4, integer -> {
-            listener.onPlayerCountChange(integer - 1);
+            if (!updatingPlayerCount) listener.onPlayerCountChange(integer - 1);
         }));
         playersPanel.add(playerCountField);
 
@@ -270,28 +279,29 @@ public class ConfigurationPanel extends JPanel {
 
         // Create Search Panel
         JPanel searchPanel = new JPanel();
-        searchPanel.setLayout(new BoxLayout(searchPanel, BoxLayout.X_AXIS));
+        searchPanel.setMinimumSize(new Dimension(35, 40));
         searchPanel.setBorder(new EmptyBorder(10, 0, 0, 0));
-
-        // Add Label to Search Panel
-        JLabel searchLabel = new JLabel();
-        searchLabel.setFont(WoodsFont.TEXT_FONT);
-        searchLabel.setText("Search: ");
-        searchPanel.add(searchLabel);
-
-        searchPanel.add(Box.createHorizontalGlue());
-
-        // Add Dropdown to Movement Panel
-        String[] searchMethods = { "Randomly", "New Locations" };
-        JComboBox searchDropdown = new JComboBox<>(searchMethods);
-        searchDropdown.setSelectedIndex(0);
-        searchDropdown.setFont(WoodsFont.TEXT_FONT);
-        searchDropdown.setMaximumSize(new Dimension(300, 35));
-        searchDropdown.addActionListener(e -> {
-            JComboBox dropdown = (JComboBox) e.getSource();
-            listener.onSearchMethodChange(dropdown.getSelectedIndex());
-        });
-        searchPanel.add(searchDropdown);
+//        searchPanel.setLayout(new BoxLayout(searchPanel, BoxLayout.X_AXIS));
+//
+//        // Add Label to Search Panel
+//        JLabel searchLabel = new JLabel();
+//        searchLabel.setFont(WoodsFont.TEXT_FONT);
+//        searchLabel.setText("Search: ");
+//        searchPanel.add(searchLabel);
+//
+//        searchPanel.add(Box.createHorizontalGlue());
+//
+//        // Add Dropdown to Movement Panel
+//        String[] searchMethods = { "Randomly", "New Locations" };
+//        JComboBox searchDropdown = new JComboBox<>(searchMethods);
+//        searchDropdown.setSelectedIndex(0);
+//        searchDropdown.setFont(WoodsFont.TEXT_FONT);
+//        searchDropdown.setMaximumSize(new Dimension(300, 35));
+//        searchDropdown.addActionListener(e -> {
+//            JComboBox dropdown = (JComboBox) e.getSource();
+//            listener.onSearchMethodChange(dropdown.getSelectedIndex());
+//        });
+//        searchPanel.add(searchDropdown);
 
         // Add Movement Panel
         rightPanel.add(searchPanel);
@@ -314,12 +324,11 @@ public class ConfigurationPanel extends JPanel {
             playerPanel.add(Box.createHorizontalGlue());
 
             // Add Label to Player Distance Panel
-            JLabel playerDistanceField = new JLabel();
-            playerDistanceField.setFont(WoodsFont.TEXT_FONT);
-            playerDistanceField.setMaximumSize(new Dimension(30, 30));
-            playerDistanceField.setPreferredSize(new Dimension(30, 30));
-            playerDistanceField.setText("10");
-            playerPanel.add(playerDistanceField);
+            playerDistanceFields[x].setFont(WoodsFont.TEXT_FONT);
+            playerDistanceFields[x].setMaximumSize(new Dimension(30, 30));
+            playerDistanceFields[x].setPreferredSize(new Dimension(30, 30));
+            playerDistanceFields[x].setText("0");
+            playerPanel.add(playerDistanceFields[x]);
 
             // Add Speed Panel
             rightPanel.add(playerPanel);

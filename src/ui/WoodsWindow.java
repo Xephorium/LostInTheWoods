@@ -72,9 +72,6 @@ public class WoodsWindow {
             configurationPanel.showPlayerCount();
             configurationPanel.showGridSize();
 
-        } else {
-
-            // Set Advanced UI State
         }
     }
 
@@ -84,6 +81,7 @@ public class WoodsWindow {
 
     public void setPlayerCount(int count) {
         gridFramePanel.setPlayerCount(count);
+        configurationPanel.setPlayerCount(count);
     }
 
 
