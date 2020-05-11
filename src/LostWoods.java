@@ -167,15 +167,25 @@ public class LostWoods {
             }
 
             @Override
-            public void onFound() {
-
+            public void onFound(long cycles) {
+                resetSimulation();
+                System.out.println("Explorers Found! It took " + cycles + " cycles.");
             }
 
             @Override
-            public void onLost() {
-
+            public void onLost(long cycles) {
+                resetSimulation();
+                System.out.println("Explorers lost after " + cycles + " cycles.");
             }
         };
+    }
+
+    private void resetSimulation() {
+        woodsSimulator.endSimulation();
+        explorers = generateStartingExplorers(gridSize, playerCount);
+        woodsSimulator.setPlayerPositions(getExplorerPositions());
+        woodsWindow.setPlayerPositions(getExplorerPositions());
+        woodsWindow.setPlayerDistances(getResetExplorerDistances());
     }
 
     private ArrayList<Explorer> generateStartingExplorers(Point gridSize, int players) {
@@ -199,6 +209,14 @@ public class LostWoods {
         ArrayList<Integer> distances = new ArrayList<Integer>();
         for (int x = 0; x < playerCount + 1; x++) {
             distances.add(explorers.get(x).getDistanceTravelled());
+        }
+        return new ArrayList<>(distances.subList(0, playerCount + 1));
+    }
+
+    private ArrayList<Integer> getResetExplorerDistances() {
+        ArrayList<Integer> distances = new ArrayList<Integer>();
+        for (int x = 0; x < playerCount + 1; x++) {
+            distances.add(0);
         }
         return new ArrayList<>(distances.subList(0, playerCount + 1));
     }

@@ -28,7 +28,7 @@ public class WoodsSimulator {
 
     // State Constants
     private static final long UPDATE_INTERVAL = 100;
-    private static final int MAX_TIME = 1000000;
+    private static final int MAX_TIME = 60000;
 
     // State Variables
     private WoodsSimulatorListener listener;
@@ -87,9 +87,10 @@ public class WoodsSimulator {
         explorationCancelled = false;
 
         // Simulate Exploration, Passing Updates to Listener Each Step
-        long time = (new Date()).getTime();
-        long lastUpdate = time;
-        long endTime = time + MAX_TIME;
+        long startTime = (new Date()).getTime();
+        long time = startTime;
+        long lastUpdate = startTime;
+        long endTime = startTime + MAX_TIME;
         while (time < endTime && !explorersFound && !explorationCancelled) {
 
             // Update Time
@@ -117,10 +118,20 @@ public class WoodsSimulator {
                 listener.onUpdate(positions);
             }
         }
+
+        // Calculate Cycles
+        long cycles = time - startTime;
+
+        if (explorersFound) {
+            listener.onFound(cycles);
+        } else {
+            listener.onLost(cycles);
+        }
     }
 
     public void endSimulation() {
         explorationCancelled = true;
+        explorersFound = false;
 
     }
 
@@ -199,7 +210,7 @@ public class WoodsSimulator {
 
     public interface WoodsSimulatorListener {
         public void onUpdate(ArrayList<Point> positions);
-        public void onFound();
-        public void onLost();
+        public void onFound(long cycles);
+        public void onLost(long cycles);
     }
 }
