@@ -18,10 +18,13 @@ import java.awt.*;
 public class WoodsColor {
     public static final Color WINDOW_BACKGROUND_COLOR = new Color(240, 240, 240);
     public static final Color WINDOW_BORDER_COLOR = new Color(200, 200, 200);
+    public static final Color GRID_BORDER_COLOR = new Color(180, 180, 180);
     public static final Color[] PLAYER_COLORS = {
             new Color(120, 150, 255),
             new Color(255, 140, 140),
             new Color(110, 215, 110),
             new Color(245, 195, 105)
     };
+    public static final Color BUTTON_RUN = new Color(60, 140, 60);
+    public static final Color BUTTON_STOP = new Color(210, 95, 95);
 }

@@ -89,7 +89,7 @@ public class GridPanel extends JPanel {
 
         // Draw Grid
         int lineWidth = 1;
-        graphics.setColor(WoodsColor.WINDOW_BORDER_COLOR);
+        graphics.setColor(WoodsColor.GRID_BORDER_COLOR);
         graphics.setStroke(new BasicStroke(lineWidth));
         int positionX = startX + lineWidth / 2;
         for(int x = 0; x < width + 1; x++) {

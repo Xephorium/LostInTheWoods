@@ -65,6 +65,7 @@ public class ActionPanel extends JPanel {
         stopButton = new JButton("Stop");
         stopButton.setPreferredSize(new Dimension(200, 60));
         stopButton.setFont(WoodsFont.BUTTON_FONT);
+        stopButton.setForeground(WoodsColor.BUTTON_STOP);
         stopButton.addActionListener(actionEvent -> listener.onStop());
         return stopButton;
     }
@@ -73,6 +74,7 @@ public class ActionPanel extends JPanel {
         runButton = new JButton("Run");
         runButton.setPreferredSize(new Dimension(200, 60));
         runButton.setFont(WoodsFont.BUTTON_FONT);
+        runButton.setForeground(WoodsColor.BUTTON_RUN);
         runButton.addActionListener(actionEvent -> listener.onStart());
         return runButton;
     }
