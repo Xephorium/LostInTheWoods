@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.Random;
 
 /* Title:          Lost Woods
- * This File:      LostWoods.java
+ * This File:      WoodsSimulator.java
  * Team Name:      Aerosol Strike Force
  * Developers:     Chris Cruzen, James Brown, Alec Grizzell, Jacob Brown
  * Dev Emails:     cac6g3@mail.umsl.edu, alecgrizzell@gmail.com
@@ -16,18 +16,18 @@ import java.util.Random;
  * Date:           05.10.2020
  * Description:
  *
- *   LostWoods is the primary driver of the Lost Woods simulation.
+ *   WoodsSimulator is the primary driver of the Lost Woods simulation.
  * It handles grid construction, explorer instantiation/management,
  * and simulation of each explorer's journey.
  */
 
-public class LostWoods {
+public class WoodsSimulator {
 
 
     /*--- Variable Declarations ---*/
 
     // State Constants
-    private static final long UPDATE_INTERVAL = 400;
+    private static final long UPDATE_INTERVAL = 100;
     private static final int MAX_TIME = 1000000;
 
     // State Variables
@@ -46,7 +46,7 @@ public class LostWoods {
 
     /*--- Constructor ---*/
 
-    public LostWoods() {
+    public WoodsSimulator() {
 
         // Initialize State Variables
         random = new Random();
@@ -95,7 +95,7 @@ public class LostWoods {
             // Update Time
             time = (new Date()).getTime();
 
-            if (time - lastUpdate > UPDATE_INTERVAL) {
+            if (time - lastUpdate > UPDATE_INTERVAL / timeFactor) {
 
                 lastUpdate = time;
 
@@ -123,7 +123,6 @@ public class LostWoods {
         explorationCancelled = true;
 
     }
-
 
     /* Name: getRandomMove()
      * Description: Generates a valid random move given a current
