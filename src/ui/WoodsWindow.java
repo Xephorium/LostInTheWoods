@@ -1,5 +1,6 @@
 package ui;
 
+import model.ProgramVersion;
 import ui.utility.DisplayUtility;
 
 import javax.swing.*;
@@ -53,6 +54,30 @@ public class WoodsWindow {
         frame.setVisible(true);
     }
 
+    public void setProgramVersion(ProgramVersion version) {
+        if (version == ProgramVersion.Simple) {
+
+            // Set Simple UI State
+            gridFramePanel.setPlayerCount(1);
+            configurationPanel.setPlayerCount(1);
+            configurationPanel.hidePlayerCount();
+            configurationPanel.setGridSize(new Point(20, 20));
+            configurationPanel.hideGridSize();
+
+        } else if (version == ProgramVersion.Intermediate) {
+
+            // Set Intermediate UI State
+            gridFramePanel.setPlayerCount(1);
+            configurationPanel.setPlayerCount(1);
+            configurationPanel.showPlayerCount();
+            configurationPanel.showGridSize();
+
+        } else {
+
+            // Set Advanced UI State
+        }
+    }
+
     public void setGridSize(Point size) {
         gridFramePanel.setGridSize(size);
     }
@@ -81,7 +106,6 @@ public class WoodsWindow {
         );
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setResizable(false);
-        //frame.setIconImages((new ArmoryImage()).ICON_APPLICATION_MAIN_LIST);
     }
 
     private void initializeViewClasses() {
@@ -100,7 +124,7 @@ public class WoodsWindow {
     /*--- Woods Window Listener ---*/
 
     public interface WoodsWindowListener {
-        public void onVersionChange(int index);
+        public void onVersionChange(ProgramVersion version);
         public void onSpeedChange(int factor);
         public void onPlayerCountChange(int count);
         public void onGridWidthChange(int width);

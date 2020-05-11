@@ -1,5 +1,6 @@
 package ui;
 
+import model.ProgramVersion;
 import ui.WoodsWindow.WoodsWindowListener;
 import ui.res.WoodsColor;
 import ui.res.WoodsFont;
@@ -34,6 +35,13 @@ public class ConfigurationPanel extends JPanel {
 
     private WoodsWindowListener listener;
 
+    private JLabel playerCountLabel;
+    private JTextField playerCountField;
+    private JLabel gridWidthLabel;
+    private JTextField gridWidthField;
+    private JLabel gridHeightLabel;
+    private JTextField gridHeightField;
+
 
     /*--- Constructor ---*/
 
@@ -50,6 +58,42 @@ public class ConfigurationPanel extends JPanel {
         this.add(createLeftPanel(), BorderLayout.LINE_START);
         this.add(createSpacerPanel());
         this.add(createRightPanel(), BorderLayout.LINE_END);
+    }
+
+
+    /*--- Public Methods ---*/
+
+    public void showPlayerCount() {
+        playerCountLabel.setVisible(true);
+        playerCountField.setVisible(true);
+    }
+
+    public void hidePlayerCount() {
+        playerCountLabel.setVisible(false);
+        playerCountField.setVisible(false);
+    }
+
+    public void setPlayerCount(int count) {
+        playerCountField.setText("" + (count + 1));
+    }
+
+    public void showGridSize() {
+        gridWidthLabel.setVisible(true);
+        gridWidthField.setVisible(true);
+        gridHeightLabel.setVisible(true);
+        gridHeightField.setVisible(true);
+    }
+
+    public void hideGridSize() {
+        gridWidthLabel.setVisible(false);
+        gridWidthField.setVisible(false);
+        gridHeightLabel.setVisible(false);
+        gridHeightField.setVisible(false);
+    }
+
+    public void setGridSize(Point size) {
+        gridWidthField.setText("" + size.x);
+        gridHeightField.setText("" + size.y);
     }
 
 
@@ -83,7 +127,7 @@ public class ConfigurationPanel extends JPanel {
         versionDropdown.setMaximumSize(new Dimension(300, 35));
         versionDropdown.addActionListener(e -> {
             JComboBox dropdown = (JComboBox) e.getSource();
-            listener.onVersionChange(dropdown.getSelectedIndex());
+            listener.onVersionChange(ProgramVersion.values()[dropdown.getSelectedIndex()]);
         });
         versionPanel.add(versionDropdown);
 
@@ -125,16 +169,16 @@ public class ConfigurationPanel extends JPanel {
         playersPanel.setBorder(new EmptyBorder(5, 0, 0, 0));
 
         // Add Label to Players Panel
-        JLabel playersLabel = new JLabel();
-        playersLabel.setFont(WoodsFont.TEXT_FONT);
-        playersLabel.setPreferredSize(new Dimension(200, 35));
-        playersLabel.setText("Players: ");
-        playersPanel.add(playersLabel);
+        playerCountLabel = new JLabel();
+        playerCountLabel.setFont(WoodsFont.TEXT_FONT);
+        playerCountLabel.setPreferredSize(new Dimension(200, 35));
+        playerCountLabel.setText("Players: ");
+        playersPanel.add(playerCountLabel);
 
         playersPanel.add(Box.createHorizontalGlue());
 
         // Add Text Field to Version Panel
-        JTextField playerCountField = new JTextField();
+        playerCountField = new JTextField();
         playerCountField.setFont(WoodsFont.TEXT_FONT);
         playerCountField.setMaximumSize(new Dimension(30, 30));
         playerCountField.setPreferredSize(new Dimension(30, 30));
@@ -154,7 +198,7 @@ public class ConfigurationPanel extends JPanel {
         gridWidthPanel.setBorder(new EmptyBorder(5, 0, 0, 0));
 
         // Add Label to Grid Width Panel
-        JLabel gridWidthLabel = new JLabel();
+        gridWidthLabel = new JLabel();
         gridWidthLabel.setFont(WoodsFont.TEXT_FONT);
         gridWidthLabel.setPreferredSize(new Dimension(200, 35));
         gridWidthLabel.setText("Grid Width: ");
@@ -163,7 +207,7 @@ public class ConfigurationPanel extends JPanel {
         gridWidthPanel.add(Box.createHorizontalGlue());
 
         // Add Text Field to Grid Width Panel
-        JTextField gridWidthField = new JTextField();
+        gridWidthField = new JTextField();
         gridWidthField.setFont(WoodsFont.TEXT_FONT);
         gridWidthField.setMaximumSize(new Dimension(40, 30));
         gridWidthField.setPreferredSize(new Dimension(40, 30));
@@ -183,7 +227,7 @@ public class ConfigurationPanel extends JPanel {
         gridHeightPanel.setBorder(new EmptyBorder(5, 0, 0, 0));
 
         // Add Label to Grid Height Panel
-        JLabel gridHeightLabel = new JLabel();
+        gridHeightLabel = new JLabel();
         gridHeightLabel.setFont(WoodsFont.TEXT_FONT);
         gridHeightLabel.setPreferredSize(new Dimension(200, 35));
         gridHeightLabel.setText("Grid Height: ");
@@ -192,7 +236,7 @@ public class ConfigurationPanel extends JPanel {
         gridHeightPanel.add(Box.createHorizontalGlue());
 
         // Add Text Field to Grid Height Panel
-        JTextField gridHeightField = new JTextField();
+        gridHeightField = new JTextField();
         gridHeightField.setFont(WoodsFont.TEXT_FONT);
         gridHeightField.setMaximumSize(new Dimension(40, 30));
         gridHeightField.setPreferredSize(new Dimension(40, 30));

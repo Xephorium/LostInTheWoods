@@ -1,3 +1,4 @@
+import model.ProgramVersion;
 import simulation.LostWoods;
 import ui.WoodsWindow;
 import ui.WoodsWindow.WoodsWindowListener;
@@ -33,8 +34,8 @@ public class Main {
             int gridHeight = 20;
 
             @Override
-            public void onVersionChange(int index) {
-                System.out.println("Version: " + index);
+            public void onVersionChange(ProgramVersion version) {
+                woodsWindow.setProgramVersion(version);
             }
 
             @Override
