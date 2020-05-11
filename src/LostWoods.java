@@ -17,6 +17,7 @@ import model.ProgramVersion;
 import simulation.Explorer;
 import simulation.WoodsSimulator;
 import ui.WoodsWindow;
+import ui.utility.DialogUtility;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -143,11 +144,7 @@ public class LostWoods {
 
             @Override
             public void onStart() {
-
-                // Reset Explorers
-                explorers = generateStartingExplorers(gridSize, playerCount);
-                woodsSimulator.setPlayerPositions(getExplorerPositions());
-                woodsSimulator.setPlayerPositions(getExplorerPositions());
+                resetSimulation();
 
                 Thread newThread = new Thread(() -> {
                     woodsSimulator.beginSimulation();
@@ -169,12 +166,14 @@ public class LostWoods {
             @Override
             public void onFound(long cycles) {
                 resetSimulation();
+                woodsWindow.showExplorersFoundDialog(cycles);
                 System.out.println("Explorers Found! It took " + cycles + " cycles.");
             }
 
             @Override
             public void onLost(long cycles) {
                 resetSimulation();
+                woodsWindow.showExplorersLostDialog(cycles);
                 System.out.println("Explorers lost after " + cycles + " cycles.");
             }
         };

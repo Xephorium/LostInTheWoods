@@ -1,6 +1,7 @@
 package ui;
 
 import model.ProgramVersion;
+import ui.utility.DialogUtility;
 import ui.utility.DisplayUtility;
 
 import javax.swing.*;
@@ -95,6 +96,14 @@ public class WoodsWindow {
         for (int x = 0; x < playerDistances.size(); x++) {
             configurationPanel.setPlayerDistance(x, playerDistances.get(x));
         }
+    }
+
+    public void showExplorersFoundDialog(long cycles) {
+        DialogUtility.createExplorersFoundDialog(frame, cycles);
+    }
+
+    public void showExplorersLostDialog(long cycles) {
+        DialogUtility.createExplorersLostDialog(frame, cycles);
     }
 
 
