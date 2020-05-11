@@ -173,14 +173,12 @@ public class LostWoods {
 
             @Override
             public void onFound(long cycles) {
-                resetSimulation();
-                woodsWindow.showExplorersFoundDialog(cycles);
+                woodsWindow.showExplorersFoundDialog(() -> resetSimulation(), cycles);
             }
 
             @Override
             public void onLost(long cycles) {
-                resetSimulation();
-                woodsWindow.showExplorersLostDialog(cycles);
+                woodsWindow.showExplorersLostDialog(() -> resetSimulation(), cycles);
             }
         };
     }

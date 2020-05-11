@@ -1,5 +1,6 @@
 package ui;
 
+import javafx.scene.control.DialogEvent;
 import model.ProgramVersion;
 import model.SearchMethod;
 import ui.utility.DialogUtility;
@@ -113,12 +114,12 @@ public class WoodsWindow {
         }
     }
 
-    public void showExplorersFoundDialog(long cycles) {
-        DialogUtility.createExplorersFoundDialog(frame, cycles);
+    public void showExplorersFoundDialog(DialogUtility.DialogEventListener listener, long cycles) {
+        DialogUtility.createExplorersFoundDialog(listener, cycles);
     }
 
-    public void showExplorersLostDialog(long cycles) {
-        DialogUtility.createExplorersLostDialog(frame, cycles);
+    public void showExplorersLostDialog(DialogUtility.DialogEventListener listener, long cycles) {
+        DialogUtility.createExplorersLostDialog(listener, cycles);
     }
 
 

@@ -4,7 +4,6 @@ import ui.res.WoodsFont;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.*;
 
 /* Title:          Lost Woods
  * This File:      DialogUtility.java
@@ -29,17 +28,28 @@ public class DialogUtility {
 
     /*--- Dialogs ---*/
 
-    public static void createExplorersFoundDialog(JFrame frame, long cycles) {
+    public static void createExplorersFoundDialog(DialogEventListener listener, long cycles) {
         JLabel label = new JLabel("The explorers found each other after " + cycles + " cycles!");
         label.setFont(WoodsFont.DIALOG_FONT);
         label.setBorder(new EmptyBorder(10, 10, 10, 10));
         JOptionPane.showMessageDialog(null, label, " Success!", JOptionPane.DEFAULT_OPTION);
+
+        listener.onOkay();
     }
 
-    public static void createExplorersLostDialog(JFrame frame, long cycles) {
+    public static void createExplorersLostDialog(DialogEventListener listener, long cycles) {
         JLabel label = new JLabel("After " + cycles + " cycles, the explorers remain lost.");
         label.setFont(WoodsFont.DIALOG_FONT);
         label.setBorder(new EmptyBorder(10, 10, 10, 10));
         JOptionPane.showMessageDialog(null, label, " Explorers Lost", JOptionPane.DEFAULT_OPTION);
+
+        listener.onOkay();
+    }
+
+
+    /*--- Dialog Event Listener ---*/
+
+    public interface DialogEventListener {
+        public void onOkay();
     }
 }
