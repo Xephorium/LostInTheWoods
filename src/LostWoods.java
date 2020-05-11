@@ -167,14 +167,12 @@ public class LostWoods {
             public void onFound(long cycles) {
                 resetSimulation();
                 woodsWindow.showExplorersFoundDialog(cycles);
-                System.out.println("Explorers Found! It took " + cycles + " cycles.");
             }
 
             @Override
             public void onLost(long cycles) {
                 resetSimulation();
                 woodsWindow.showExplorersLostDialog(cycles);
-                System.out.println("Explorers lost after " + cycles + " cycles.");
             }
         };
     }

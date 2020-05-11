@@ -120,7 +120,7 @@ public class WoodsSimulator {
         }
 
         // Calculate Cycles
-        long cycles = time - startTime;
+        long cycles = (time - startTime) / UPDATE_INTERVAL;
 
         if (explorersFound) {
             listener.onFound(cycles);
