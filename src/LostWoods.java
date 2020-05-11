@@ -14,6 +14,7 @@
  */
 
 import model.ProgramVersion;
+import simulation.Explorer;
 import simulation.WoodsSimulator;
 import ui.WoodsWindow;
 
@@ -41,7 +42,7 @@ public class LostWoods {
     int speedFactor;
     int playerCount;
     Point gridSize;
-    ArrayList<Point> playerPositions;
+    ArrayList<Explorer> explorers;
 
 
     /*--- Constructor ---*/
@@ -59,7 +60,7 @@ public class LostWoods {
         speedFactor = DEFAULT_SPEED_FACTOR;
         playerCount = DEFAULT_PLAYER_COUNT;
         gridSize = new Point(DEFAULT_GRID_WIDTH, DEFAULT_GRID_HEIGHT);
-        playerPositions = generateStartingPositions(gridSize, playerCount);
+        explorers = generateStartingExplorers(gridSize, playerCount);
     }
 
 
@@ -74,13 +75,13 @@ public class LostWoods {
         woodsWindow.setProgramVersion(programVersion);
         woodsWindow.setGridSize(gridSize);
         woodsWindow.setPlayerCount(playerCount);
-        woodsWindow.setPlayerPositions(playerPositions);
+        woodsWindow.setPlayerPositions(getExplorerPositions());
 
         // Populate Simulator
         woodsSimulator.setTimeFactor(speedFactor);
         woodsSimulator.setGridSize(gridSize);
         woodsSimulator.setPlayerCount(playerCount);
-        woodsSimulator.setPlayerPositions(playerPositions);
+        woodsSimulator.setPlayerPositions(getExplorerPositions());
     }
 
 
@@ -112,22 +113,22 @@ public class LostWoods {
             public void onGridWidthChange(int width) {
                 onStop();
                 gridSize.x = width;
-                playerPositions = generateStartingPositions(gridSize, playerCount);
+                explorers = generateStartingExplorers(gridSize, playerCount);
                 woodsSimulator.setGridSize(gridSize);
                 woodsWindow.setGridSize(gridSize);
-                woodsSimulator.setPlayerPositions(playerPositions);
-                woodsWindow.setPlayerPositions(playerPositions);
+                woodsSimulator.setPlayerPositions(getExplorerPositions());
+                woodsWindow.setPlayerPositions(getExplorerPositions());
             }
 
             @Override
             public void onGridHeightChange(int height) {
                 onStop();
                 gridSize.y = height;
-                playerPositions = generateStartingPositions(gridSize, playerCount);
+                explorers = generateStartingExplorers(gridSize, playerCount);
                 woodsSimulator.setGridSize(gridSize);
                 woodsWindow.setGridSize(gridSize);
-                woodsSimulator.setPlayerPositions(playerPositions);
-                woodsWindow.setPlayerPositions(playerPositions);
+                woodsSimulator.setPlayerPositions(getExplorerPositions());
+                woodsWindow.setPlayerPositions(getExplorerPositions());
             }
 
             @Override
@@ -143,10 +144,10 @@ public class LostWoods {
             @Override
             public void onStart() {
 
-                // Reset Player Positions
-                playerPositions = generateStartingPositions(gridSize, playerCount);
-                woodsSimulator.setPlayerPositions(playerPositions);
-                woodsSimulator.setPlayerPositions(playerPositions);
+                // Reset Explorers
+                explorers = generateStartingExplorers(gridSize, playerCount);
+                woodsSimulator.setPlayerPositions(getExplorerPositions());
+                woodsSimulator.setPlayerPositions(getExplorerPositions());
 
                 Thread newThread = new Thread(() -> {
                     woodsSimulator.beginSimulation();
@@ -160,7 +161,8 @@ public class LostWoods {
         return new WoodsSimulator.WoodsSimulatorListener() {
             @Override
             public void onUpdate(ArrayList<Point> positions) {
-                woodsWindow.setPlayerPositions(positions);
+                updateExplorerPositions(positions);
+                woodsWindow.setPlayerPositions(getExplorerPositions());
             }
 
             @Override
@@ -175,12 +177,26 @@ public class LostWoods {
         };
     }
 
-    private ArrayList<Point> generateStartingPositions(Point gridSize, int players) {
-        ArrayList<Point> newPositions = new ArrayList<Point>();
-        newPositions.add(new Point(0, 0));
-        newPositions.add(new Point(gridSize.x - 1, gridSize.y - 1));
-        newPositions.add(new Point(0, gridSize.y - 1));
-        newPositions.add(new Point(gridSize.x - 1, 0));
-        return new ArrayList<>(newPositions.subList(0, players + 1));
+    private ArrayList<Explorer> generateStartingExplorers(Point gridSize, int players) {
+        ArrayList<Explorer> newExplorers = new ArrayList<Explorer>();
+        newExplorers.add(new Explorer(0, 0));
+        newExplorers.add(new Explorer(gridSize.x - 1, gridSize.y - 1));
+        newExplorers.add(new Explorer(0, gridSize.y - 1));
+        newExplorers.add(new Explorer(gridSize.x - 1, 0));
+        return new ArrayList<>(newExplorers.subList(0, players + 1));
+    }
+
+    private ArrayList<Point> getExplorerPositions() {
+        ArrayList<Point> positions = new ArrayList<Point>();
+        for (int x = 0; x < playerCount + 1; x++) {
+            positions.add(explorers.get(x).getPosition());
+        }
+        return positions;
+    }
+
+    private void updateExplorerPositions(ArrayList<Point> positions) {
+        for (int x = 0; x < playerCount + 1; x++) {
+            explorers.get(x).setPosition(positions.get(x));
+        }
     }
 }

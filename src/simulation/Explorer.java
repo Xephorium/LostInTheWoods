@@ -30,7 +30,7 @@ public class Explorer {
 
     /*--- Constructor --*/
 
-    Explorer(int x, int y) {
+    public Explorer(int x, int y) {
         position = new Point();
         position.x = x;
         position.y = y;
@@ -40,11 +40,11 @@ public class Explorer {
 
     /*--- Accessors ---*/
 
-    Point getPosition() {
+    public Point getPosition() {
         return position;
     }
 
-    void setPosition(Point newPosition) {
+    public void setPosition(Point newPosition) {
 
         // Update Position
         if (!newPosition.equals(position)) {
@@ -58,19 +58,15 @@ public class Explorer {
         }
     }
 
-    void setPosition(int x, int y) {
-        position = new Point(x, y);
-    }
-
-    int getNumberOfCellsExplored() {
+    public int getNumberOfCellsExplored() {
         return exploredLocations.size();
     }
 
-    int getDistanceTravelled() {
+    public int getDistanceTravelled() {
         return distanceTravelled;
     }
 
-    boolean comparePositions(Explorer explorer) {
+    public boolean comparePositions(Explorer explorer) {
         return explorer.getPosition().equals(this.getPosition());
     }
 }
