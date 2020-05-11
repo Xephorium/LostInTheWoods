@@ -30,7 +30,7 @@ public class WoodsSimulator {
 
     // State Constants
     private static final long UPDATE_INTERVAL = 100;
-    private static final int MAX_TIME = 60000;
+    private static final int MAX_TIME = 100000;
 
     // State Variables
     private WoodsSimulatorListener listener;
@@ -113,7 +113,7 @@ public class WoodsSimulator {
                     if (searchMethod == SearchMethod.Randomly) {
                         explorers.get(x).setPosition(getRandomMove(explorers.get(x).getPosition()));
                     } else {
-                        explorers.get(x).setPosition(getRandomMove(explorers.get(x).getPosition()));
+                        explorers.get(x).setPosition(getNewMove(explorers.get(x)));
                     }
                 }
 
@@ -147,16 +147,43 @@ public class WoodsSimulator {
 
     }
 
+    private Point getNewMove(Explorer explorer) {
 
-//    private Point getNewMove(Explorer explorer) {
-//
-//        // Declare Local Variables
-//        Point move;
-//        Point lastPosition = explorer.getPosition();
-//        Point nextPosition = getRandomMove(lastPosition);
-//
-//
-//    }
+        // Declare Local Variables
+        Point lastPosition = explorer.getPosition();
+
+        // Determine All Possible Moves & Least Visits
+        ArrayList<Point> possibleMoves = new ArrayList<Point>();
+        int leastVisits = 100000; // Arbitrary High Number
+        for (int x = 0; x < 8; x++) {
+            Point possibleMove = getUpdatedPosition(lastPosition, x + 1);
+
+            // Perform Bounds Check
+            if (possibleMove.x >= 0 && possibleMove.x < gridWidth
+                    && possibleMove.y >= 0 && possibleMove.y < gridHeight) {
+                possibleMoves.add(possibleMove);
+                if (explorer.getLocationVisits(possibleMove) < leastVisits) {
+                    leastVisits = explorer.getLocationVisits(possibleMove);
+                }
+            }
+        }
+
+        // Reduce Possible Moves to Least Visited Locations
+        ArrayList<Point> finalMoves = new ArrayList<Point>();
+        for (int x = 0; x < possibleMoves.size(); x++) {
+            if (explorer.getLocationVisits(possibleMoves.get(x)) == leastVisits) {
+                finalMoves.add(possibleMoves.get(x));
+            }
+        }
+
+        // Randomly Decide Between Final Moves
+        int nextPositionIndex = 0;
+        if (finalMoves.size() > 1) {
+            nextPositionIndex = random.nextInt(finalMoves.size() - 1);
+        }
+
+        return finalMoves.get(nextPositionIndex);
+    }
 
     /* Name: getRandomMove()
      * Description: Generates a valid random move given a current
@@ -168,9 +195,8 @@ public class WoodsSimulator {
         int move;
         Point nextPosition;
 
-        // Get Random Integer (1-8) Representing Move
-        move = random.nextInt(8) + 1;
-        nextPosition = getUpdatedPosition(lastPosition, move);
+        // Generate Random Move
+        nextPosition = getUpdatedPosition(lastPosition, getRandomMove());
 
         // Perform Bounds Check & Return
         if (nextPosition.x >= 0 && nextPosition.x < gridWidth
@@ -209,7 +235,14 @@ public class WoodsSimulator {
             case 8: return new Point(lastPosition.x - 1, lastPosition.y - 1);
         }
 
+        // Unreachable Code
         return null;
+    }
+
+    private int getRandomMove() {
+
+        // Get Random Integer (1-8) Representing Move
+        return random.nextInt(8) + 1;
     }
 
 
