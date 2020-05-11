@@ -5,6 +5,7 @@ import ui.res.WoodsColor;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Line2D;
+import java.util.ArrayList;
 
 /* Title:          Lost Woods
  * This File:      GridPanel.java
@@ -26,9 +27,17 @@ public class GridPanel extends JPanel {
 
     public static final int DEFAULT_WIDTH = 20;
     public static final int DEFAULT_HEIGHT = 20;
+    public static final Point[] DEFAULT_PLAYER_POSITIONS = {
+            new Point(0, 0),
+            new Point(DEFAULT_WIDTH - 1, DEFAULT_HEIGHT - 1),
+            new Point(0, DEFAULT_HEIGHT - 1),
+            new Point(DEFAULT_WIDTH - 1, 0)
+    };
 
     private int width;
     private int height;
+
+    private Point[] playerPositions;
 
     /*--- Constructor ---*/
 
@@ -37,6 +46,8 @@ public class GridPanel extends JPanel {
 
         this.width = DEFAULT_WIDTH;
         this.height = DEFAULT_HEIGHT;
+
+        this.playerPositions = DEFAULT_PLAYER_POSITIONS;
     }
 
 
@@ -65,6 +76,17 @@ public class GridPanel extends JPanel {
         graphics.setColor(Color.WHITE);
         graphics.fillRect(startX, startY, squareWidth * width, squareHeight * height);
 
+        // Draw Players
+        for (int x = 0; x < 4; x++) {
+            graphics.setColor(WoodsColor.PLAYER_COLORS[x]);
+            graphics.fillRect(
+                    startX +  playerPositions[x].x * squareWidth,
+                    startY + playerPositions[x].y * squareHeight,
+                    squareWidth,
+                    squareHeight
+            );
+        }
+
         // Draw Grid
         int lineWidth = 1;
         graphics.setColor(WoodsColor.WINDOW_BORDER_COLOR);
@@ -81,7 +103,5 @@ public class GridPanel extends JPanel {
             graphics.draw(line);
             positionY += squareHeight;
         }
-
-        // TODO - Draw Players
     }
 }
