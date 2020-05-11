@@ -15,5 +15,6 @@ package model;
 
 public enum ProgramVersion {
     Simple,
-    Intermediate
+    Intermediate,
+    Advanced
 }

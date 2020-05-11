@@ -27,9 +27,10 @@ public class LostWoods {
 
     // Constants
     private static final ProgramVersion DEFAULT_PROGRAM_VERSION = ProgramVersion.Intermediate;
+    private static final int DEFAULT_SPEED_FACTOR = 1;
+    private static final int DEFAULT_PLAYER_COUNT = 1;
     private static final int DEFAULT_GRID_WIDTH = 20;
     private static final int DEFAULT_GRID_HEIGHT = 20;
-    private static final int DEFAULT_PLAYER_COUNT = 1;
 
     // Delegation Classes
     WoodsSimulator woodsSimulator;
@@ -37,8 +38,9 @@ public class LostWoods {
 
     // State Variables
     ProgramVersion programVersion;
-    Point gridSize;
+    int speedFactor;
     int playerCount;
+    Point gridSize;
     ArrayList<Point> playerPositions;
 
 
@@ -48,13 +50,15 @@ public class LostWoods {
 
         // Instantiate & Configure Delegation Classes
         woodsSimulator = new WoodsSimulator();
+        woodsSimulator.setUpdateListener(getWoodsSimulatorListener());
         woodsWindow = new WoodsWindow();
         woodsWindow.setListener(getWoodsWindowListener());
 
         // Instantiate & Configure State Variables
         programVersion = DEFAULT_PROGRAM_VERSION;
-        gridSize = new Point(DEFAULT_GRID_WIDTH, DEFAULT_GRID_HEIGHT);
+        speedFactor = DEFAULT_SPEED_FACTOR;
         playerCount = DEFAULT_PLAYER_COUNT;
+        gridSize = new Point(DEFAULT_GRID_WIDTH, DEFAULT_GRID_HEIGHT);
         playerPositions = generateStartingPositions(gridSize, playerCount);
     }
 
@@ -67,19 +71,15 @@ public class LostWoods {
         woodsWindow.displayWindow();
 
         // Populate User Interface
-        woodsWindow.setPlayerCount(1);
         woodsWindow.setProgramVersion(programVersion);
+        woodsWindow.setGridSize(gridSize);
+        woodsWindow.setPlayerCount(playerCount);
+        woodsWindow.setPlayerPositions(playerPositions);
 
         // Populate Simulator
-        woodsSimulator.setUpdateListener(positions -> {
-            woodsWindow.setPlayerPositions(positions);
-        });
-        woodsSimulator.setTimeFactor(1);
-        woodsSimulator.setGridSize(new Point(20, 20));
-        woodsSimulator.setPlayerCount(1);
-        ArrayList<Point> playerPositions = new ArrayList<>();
-        playerPositions.add(new Point(0, 0));
-        playerPositions.add(new Point(19, 19));
+        woodsSimulator.setTimeFactor(speedFactor);
+        woodsSimulator.setGridSize(gridSize);
+        woodsSimulator.setPlayerCount(playerCount);
         woodsSimulator.setPlayerPositions(playerPositions);
     }
 
@@ -97,27 +97,37 @@ public class LostWoods {
 
             @Override
             public void onSpeedChange(int factor) {
-                System.out.println("Speed: " + factor);
+                speedFactor = factor;
+                woodsSimulator.setTimeFactor(speedFactor);
             }
 
             @Override
             public void onPlayerCountChange(int count) {
+                onStop();
                 playerCount = count;
                 woodsWindow.setPlayerCount(playerCount);
             }
 
             @Override
             public void onGridWidthChange(int width) {
+                onStop();
                 gridSize.x = width;
+                playerPositions = generateStartingPositions(gridSize, playerCount);
                 woodsSimulator.setGridSize(gridSize);
                 woodsWindow.setGridSize(gridSize);
+                woodsSimulator.setPlayerPositions(playerPositions);
+                woodsWindow.setPlayerPositions(playerPositions);
             }
 
             @Override
             public void onGridHeightChange(int height) {
+                onStop();
                 gridSize.y = height;
+                playerPositions = generateStartingPositions(gridSize, playerCount);
                 woodsSimulator.setGridSize(gridSize);
                 woodsWindow.setGridSize(gridSize);
+                woodsSimulator.setPlayerPositions(playerPositions);
+                woodsWindow.setPlayerPositions(playerPositions);
             }
 
             @Override
@@ -132,10 +142,35 @@ public class LostWoods {
 
             @Override
             public void onStart() {
+
+                // Reset Player Positions
+                playerPositions = generateStartingPositions(gridSize, playerCount);
+                woodsSimulator.setPlayerPositions(playerPositions);
+                woodsSimulator.setPlayerPositions(playerPositions);
+
                 Thread newThread = new Thread(() -> {
                     woodsSimulator.beginSimulation();
                 });
                 newThread.start();
+            }
+        };
+    }
+
+    private WoodsSimulator.WoodsSimulatorListener getWoodsSimulatorListener() {
+        return new WoodsSimulator.WoodsSimulatorListener() {
+            @Override
+            public void onUpdate(ArrayList<Point> positions) {
+                woodsWindow.setPlayerPositions(positions);
+            }
+
+            @Override
+            public void onFound() {
+
+            }
+
+            @Override
+            public void onLost() {
+
             }
         };
     }

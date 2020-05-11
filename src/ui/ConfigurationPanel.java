@@ -35,6 +35,7 @@ public class ConfigurationPanel extends JPanel {
 
     private WoodsWindowListener listener;
 
+    private JComboBox versionDropdown;
     private JLabel playerCountLabel;
     private JTextField playerCountField;
     private JLabel gridWidthLabel;
@@ -65,6 +66,10 @@ public class ConfigurationPanel extends JPanel {
 
 
     /*--- Public Methods ---*/
+
+    public void setProgramVersion(ProgramVersion programVersion) {
+        versionDropdown.setSelectedIndex(programVersion.ordinal());
+    }
 
     public void showPlayerCount() {
         playerCountLabel.setVisible(true);
@@ -130,7 +135,7 @@ public class ConfigurationPanel extends JPanel {
 
         // Add Dropdown to Version Panel
         String[] versions = { "Simple", "Intermediate" };
-        JComboBox versionDropdown = new JComboBox<>(versions);
+        versionDropdown = new JComboBox<>(versions);
         versionDropdown.setSelectedIndex(0);
         versionDropdown.setFont(WoodsFont.TEXT_FONT);
         versionDropdown.setMaximumSize(new Dimension(300, 35));

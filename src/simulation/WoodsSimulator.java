@@ -31,7 +31,7 @@ public class WoodsSimulator {
     private static final int MAX_TIME = 1000000;
 
     // State Variables
-    private LostWoodsUpdateListener listener;
+    private WoodsSimulatorListener listener;
     private Random random;
     private long lastUpdate = 0;
     private long endTime = 0;
@@ -59,7 +59,7 @@ public class WoodsSimulator {
 
     /*--- Public Methods ---*/
 
-    public void setUpdateListener(LostWoodsUpdateListener listener) {
+    public void setUpdateListener(WoodsSimulatorListener listener) {
         this.listener = listener;
     }
 
@@ -195,9 +195,11 @@ public class WoodsSimulator {
     }
 
 
-    /*--- LostWoodsUpdateListener Interface --- */
+    /*--- WoodsSimulatorListener Interface --- */
 
-    public interface LostWoodsUpdateListener {
+    public interface WoodsSimulatorListener {
         public void onUpdate(ArrayList<Point> positions);
+        public void onFound();
+        public void onLost();
     }
 }

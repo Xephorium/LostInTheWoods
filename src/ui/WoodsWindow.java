@@ -60,6 +60,7 @@ public class WoodsWindow {
 
             // Set Simple UI State
             gridFramePanel.setPlayerCount(1);
+            configurationPanel.setProgramVersion(ProgramVersion.Simple);
             configurationPanel.setPlayerCount(1);
             configurationPanel.hidePlayerCount();
             configurationPanel.setGridSize(new Point(20, 20));
@@ -69,6 +70,7 @@ public class WoodsWindow {
 
             // Set Intermediate UI State
             gridFramePanel.setPlayerCount(1);
+            configurationPanel.setProgramVersion(ProgramVersion.Intermediate);
             configurationPanel.setPlayerCount(1);
             configurationPanel.showPlayerCount();
             configurationPanel.showGridSize();
