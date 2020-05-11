@@ -46,7 +46,12 @@ public class ConfigurationPanel extends JPanel {
     private JPanel searchPanel;
     private JLabel searchLabel;
     private JComboBox searchDropdown;
-    private JLabel[] playerDistanceFields = {new JLabel(), new JLabel(), new JLabel(), new JLabel()};
+    private JLabel[] playerDistanceFields = {
+            new JLabel("0", SwingConstants.RIGHT),
+            new JLabel("0", SwingConstants.RIGHT),
+            new JLabel("0", SwingConstants.RIGHT),
+            new JLabel("0", SwingConstants.RIGHT)
+    };
 
     private boolean updatingPlayerCount = false;
 
@@ -311,13 +316,13 @@ public class ConfigurationPanel extends JPanel {
         // Add Label to Search Panel
         searchLabel = new JLabel();
         searchLabel.setFont(WoodsFont.TEXT_FONT);
-        searchLabel.setText("Search: ");
+        searchLabel.setText("Search Method: ");
         searchPanel.add(searchLabel);
 
         searchPanel.add(Box.createHorizontalGlue());
 
         // Add Dropdown to Movement Panel
-        String[] searchMethods = { "Randomly", "New Locations" };
+        String[] searchMethods = { "Random", "New Locations" };
         searchDropdown = new JComboBox<>(searchMethods);
         searchDropdown.setSelectedIndex(0);
         searchDropdown.setFont(WoodsFont.TEXT_FONT);
