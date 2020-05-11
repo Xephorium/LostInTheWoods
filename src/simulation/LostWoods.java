@@ -41,6 +41,7 @@ public class LostWoods {
     private int playerCount;
     private ArrayList<Explorer> explorers;
     private boolean explorersFound;
+    private boolean explorationCancelled = false;
 
 
     /*--- Constructor ---*/
@@ -83,13 +84,13 @@ public class LostWoods {
     }
 
     public void beginSimulation() {
-        initializeExplorers();
+        explorationCancelled = false;
 
         // Simulate Exploration, Passing Updates to Listener Each Step
         long time = (new Date()).getTime();
-        lastUpdate = time;
-        endTime = time + MAX_TIME;
-        while (time < endTime && !explorersFound) {
+        long lastUpdate = time;
+        long endTime = time + MAX_TIME;
+        while (time < endTime && !explorersFound && !explorationCancelled) {
 
             // Update Time
             time = (new Date()).getTime();
@@ -118,23 +119,10 @@ public class LostWoods {
         }
     }
 
+    public void endSimulation() {
+        explorationCancelled = true;
 
-    /*--- Private Methods ---*/
-
-
-    /* Name: initializeExplorers()
-     * Description: Creates two explorers with initial positions
-     *   on opposite sides of the grid.
-     */
-    private void initializeExplorers() {
-
-        // Set Pat's Initial Coordinates
-        explorers.add(new Explorer(0,0));
-
-        // Set Chris' Initial Coordinates
-        explorers.add(new Explorer(gridWidth - 1, gridHeight - 1));
     }
-
 
 
     /* Name: getRandomMove()

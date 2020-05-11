@@ -51,12 +51,14 @@ public class Main {
             @Override
             public void onGridWidthChange(int width) {
                 gridWidth = width;
+                lostWoods.setGridSize(new Point(gridWidth, gridHeight));
                 woodsWindow.setGridSize(new Point(gridWidth, gridHeight));
             }
 
             @Override
             public void onGridHeightChange(int height) {
                 gridHeight = height;
+                lostWoods.setGridSize(new Point(gridWidth, gridHeight));
                 woodsWindow.setGridSize(new Point(gridWidth, gridHeight));
             }
 
@@ -67,12 +69,15 @@ public class Main {
 
             @Override
             public void onStop() {
-                System.out.println("Stop");
+                lostWoods.endSimulation();
             }
 
             @Override
             public void onStart() {
-                System.out.println("Start");
+                Thread newThread = new Thread(() -> {
+                    lostWoods.beginSimulation();
+                });
+                newThread.start();
             }
         };
         woodsWindow.setListener(listener);
@@ -91,6 +96,5 @@ public class Main {
         playerPositions.add(new Point(0, 0));
         playerPositions.add(new Point(19, 19));
         lostWoods.setPlayerPositions(playerPositions);
-        lostWoods.beginSimulation();
     }
 }
