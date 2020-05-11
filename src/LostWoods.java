@@ -85,6 +85,7 @@ public class LostWoods {
         // Populate Simulator
         woodsSimulator.setTimeFactor(speedFactor);
         woodsSimulator.setGridSize(gridSize);
+        woodsSimulator.setSearchMethod(searchMethod);
         woodsSimulator.setPlayerCount(playerCount);
         woodsSimulator.setPlayerPositions(getExplorerPositions());
     }
@@ -141,7 +142,7 @@ public class LostWoods {
             public void onSearchMethodChange(SearchMethod method) {
                 onStop();
                 searchMethod = method;
-                System.out.println(searchMethod);
+                woodsSimulator.setSearchMethod(searchMethod);
             }
 
             @Override

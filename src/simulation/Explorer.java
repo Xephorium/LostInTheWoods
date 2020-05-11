@@ -53,17 +53,21 @@ public class Explorer {
         }
 
         // Update Travel Record
-        if (!exploredLocations.contains(position)) {
-            exploredLocations.add(position);
-        }
-    }
-
-    public int getNumberOfCellsExplored() {
-        return exploredLocations.size();
+        exploredLocations.add(position);
     }
 
     public int getDistanceTravelled() {
         return distanceTravelled;
+    }
+
+    public int getLocationVisits(Point location) {
+        int visits = 0;
+        for (int x = 0; x < exploredLocations.size(); x++) {
+            if (exploredLocations.get(x).equals(location)) {
+                visits++;
+            }
+        }
+        return visits;
     }
 
     public boolean comparePositions(Explorer explorer) {

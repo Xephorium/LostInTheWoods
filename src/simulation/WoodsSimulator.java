@@ -1,5 +1,7 @@
 package simulation;
 
+import model.SearchMethod;
+
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -39,6 +41,7 @@ public class WoodsSimulator {
     private int gridWidth;
     private int gridHeight;
     private int playerCount;
+    private SearchMethod searchMethod;
     private ArrayList<Explorer> explorers;
     private boolean explorersFound;
     private boolean explorationCancelled = false;
@@ -52,6 +55,7 @@ public class WoodsSimulator {
         random = new Random();
         gridWidth = 2;
         gridHeight = 2;
+        searchMethod = SearchMethod.Randomly;
         explorers = new ArrayList<>();
         explorersFound = false;
     }
@@ -70,6 +74,10 @@ public class WoodsSimulator {
     public void setGridSize(Point size) {
         this.gridWidth = size.x;
         this.gridHeight = size.y;
+    }
+
+    public void setSearchMethod(SearchMethod method) {
+        this.searchMethod = method;
     }
 
     public void setPlayerCount(int count) {
@@ -102,7 +110,11 @@ public class WoodsSimulator {
 
                 // Move Explorers
                 for (int x = 0; x < playerCount + 1; x++) {
-                    explorers.get(x).setPosition(getRandomMove(explorers.get(x).getPosition()));
+                    if (searchMethod == SearchMethod.Randomly) {
+                        explorers.get(x).setPosition(getRandomMove(explorers.get(x).getPosition()));
+                    } else {
+                        explorers.get(x).setPosition(getRandomMove(explorers.get(x).getPosition()));
+                    }
                 }
 
                 // Perform Location Check
@@ -135,6 +147,17 @@ public class WoodsSimulator {
 
     }
 
+
+//    private Point getNewMove(Explorer explorer) {
+//
+//        // Declare Local Variables
+//        Point move;
+//        Point lastPosition = explorer.getPosition();
+//        Point nextPosition = getRandomMove(lastPosition);
+//
+//
+//    }
+
     /* Name: getRandomMove()
      * Description: Generates a valid random move given a current
      *   position or returns the current position.
@@ -147,54 +170,7 @@ public class WoodsSimulator {
 
         // Get Random Integer (1-8) Representing Move
         move = random.nextInt(8) + 1;
-
-        // Determine New Coordinates
-        switch (move) {
-
-            // North
-            case 1:
-                nextPosition = new Point(lastPosition.x, lastPosition.y - 1);
-                break;
-
-            // NorthWest
-            case 2:
-                nextPosition = new Point(lastPosition.x + 1, lastPosition.y - 1);
-                break;
-
-            // West
-            case 3:
-                nextPosition = new Point(lastPosition.x + 1, lastPosition.y);
-                break;
-
-            // Southwest
-            case 4:
-                nextPosition = new Point(lastPosition.x + 1, lastPosition.y + 1);
-                break;
-
-            // South
-            case 5:
-                nextPosition = new Point(lastPosition.x, lastPosition.y + 1);
-                break;
-
-            // Southeast
-            case 6:
-                nextPosition = new Point(lastPosition.x - 1, lastPosition.y + 1);
-                break;
-
-            // East
-            case 7:
-                nextPosition = new Point(lastPosition.x - 1, lastPosition.y);
-                break;
-
-            // Northeast
-            case 8:
-                nextPosition = new Point(lastPosition.x - 1, lastPosition.y - 1);
-                break;
-
-            // Freak Random Number Generator Accident
-            default:
-                nextPosition = lastPosition;
-        }
+        nextPosition = getUpdatedPosition(lastPosition, move);
 
         // Perform Bounds Check & Return
         if (nextPosition.x >= 0 && nextPosition.x < gridWidth
@@ -203,6 +179,37 @@ public class WoodsSimulator {
         } else {
             return lastPosition;
         }
+    }
+
+    private Point getUpdatedPosition(Point lastPosition, int move) {
+        switch (move) {
+
+            // North
+            case 1: return new Point(lastPosition.x, lastPosition.y - 1);
+
+            // NorthWest
+            case 2: return new Point(lastPosition.x + 1, lastPosition.y - 1);
+
+            // West
+            case 3: return new Point(lastPosition.x + 1, lastPosition.y);
+
+            // Southwest
+            case 4: return new Point(lastPosition.x + 1, lastPosition.y + 1);
+
+            // South
+            case 5: return new Point(lastPosition.x, lastPosition.y + 1);
+
+            // Southeast
+            case 6: return new Point(lastPosition.x - 1, lastPosition.y + 1);
+
+            // East
+            case 7: return new Point(lastPosition.x - 1, lastPosition.y);
+
+            // Northeast
+            case 8: return new Point(lastPosition.x - 1, lastPosition.y - 1);
+        }
+
+        return null;
     }
 
 
