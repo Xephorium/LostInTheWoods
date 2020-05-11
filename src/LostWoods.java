@@ -79,7 +79,7 @@ public class LostWoods {
         // Populate User Interface
         woodsWindow.setProgramVersion(programVersion);
         woodsWindow.setGridSize(gridSize);
-        woodsWindow.setPlayerCount(playerCount);
+        woodsWindow.setPlayerCountDisplay(playerCount);
         woodsWindow.setPlayerPositions(getExplorerPositions());
 
         // Populate Simulator
@@ -106,7 +106,8 @@ public class LostWoods {
                 }
                 woodsWindow.setProgramVersion(programVersion);
                 woodsWindow.setGridSize(gridSize);
-                woodsWindow.setPlayerCount(playerCount);
+                woodsWindow.setPlayerCountText(playerCount);
+                woodsWindow.setPlayerCountDisplay(playerCount);
                 woodsSimulator.setGridSize(gridSize);
                 woodsSimulator.setPlayerCount(playerCount);
             }
@@ -121,7 +122,8 @@ public class LostWoods {
             public void onPlayerCountChange(int count) {
                 onStop();
                 playerCount = count;
-                woodsWindow.setPlayerCount(playerCount);
+                woodsWindow.setPlayerCountDisplay(playerCount);
+                woodsSimulator.setPlayerCount(playerCount);
             }
 
             @Override

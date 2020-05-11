@@ -92,9 +92,12 @@ public class WoodsWindow {
         gridFramePanel.setGridSize(size);
     }
 
-    public void setPlayerCount(int count) {
+    public void setPlayerCountText(int count) {
+        configurationPanel.setPlayerCount(count);
+    }
+
+    public void setPlayerCountDisplay(int count) {
         gridFramePanel.setPlayerCount(count);
-        //configurationPanel.setPlayerCount(count);
         configurationPanel.setPlayerDistanceVisibility(count);
     }
 

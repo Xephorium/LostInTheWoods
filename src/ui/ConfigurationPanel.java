@@ -98,10 +98,7 @@ public class ConfigurationPanel extends JPanel {
 
     public void setPlayerCount(int count) {
         updatingPlayerCount = true;
-
-        // Update Player Count Field Visibility
         playerCountField.setText("" + (count + 1));
-
         updatingPlayerCount = false;
     }
 
