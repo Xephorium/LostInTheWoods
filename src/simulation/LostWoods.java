@@ -16,9 +16,8 @@ import java.util.Random;
  * Description:
  *
  *   LostWoods is the primary driver of the Lost Woods simulation.
- * It handles input from and output to the user, grid construction,
- * explorer instantiation/management, and simulation of each explorer's
- * journey.
+ * It handles grid construction, explorer instantiation/management,
+ * and simulation of each explorer's journey.
  */
 
 public class LostWoods {
