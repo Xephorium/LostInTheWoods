@@ -65,6 +65,7 @@ public class WoodsWindow {
             gridFramePanel.setPlayerCount(1);
             configurationPanel.setProgramVersion(ProgramVersion.Simple);
             configurationPanel.setPlayerCount(1);
+            configurationPanel.setPlayerDistanceVisibility(1);
             configurationPanel.hidePlayerCount();
             configurationPanel.setGridSize(new Point(20, 20));
             configurationPanel.hideGridSize();
@@ -76,7 +77,6 @@ public class WoodsWindow {
             // Set Intermediate UI State
             gridFramePanel.setPlayerCount(1);
             configurationPanel.setProgramVersion(ProgramVersion.Intermediate);
-            configurationPanel.setPlayerCount(1);
             configurationPanel.showPlayerCount();
             configurationPanel.showGridSize();
             configurationPanel.hideSearchMethod();
@@ -87,7 +87,6 @@ public class WoodsWindow {
             // Set Advanced UI State
             gridFramePanel.setPlayerCount(1);
             configurationPanel.setProgramVersion(ProgramVersion.Advanced);
-            configurationPanel.setPlayerCount(1);
             configurationPanel.showPlayerCount();
             configurationPanel.showGridSize();
             configurationPanel.showSearchMethod();
@@ -102,6 +101,7 @@ public class WoodsWindow {
     public void setPlayerCount(int count) {
         gridFramePanel.setPlayerCount(count);
         configurationPanel.setPlayerCount(count);
+        configurationPanel.setPlayerDistanceVisibility(count);
     }
 
     public void setPlayerPositions(ArrayList<Point> positions) {

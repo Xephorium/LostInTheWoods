@@ -46,6 +46,12 @@ public class ConfigurationPanel extends JPanel {
     private JPanel searchPanel;
     private JLabel searchLabel;
     private JComboBox searchDropdown;
+    private JLabel[] playerDistanceLabels = {
+            new JLabel(),
+            new JLabel(),
+            new JLabel(),
+            new JLabel()
+    };
     private JLabel[] playerDistanceFields = {
             new JLabel("0", SwingConstants.RIGHT),
             new JLabel("0", SwingConstants.RIGHT),
@@ -92,8 +98,22 @@ public class ConfigurationPanel extends JPanel {
 
     public void setPlayerCount(int count) {
         updatingPlayerCount = true;
+
+        // Update Player Count Field Visibility
         playerCountField.setText("" + (count + 1));
+
         updatingPlayerCount = false;
+    }
+
+    public void setPlayerDistanceVisibility(int count) {
+        for (int x = 0; x < count + 1; x++) {
+            playerDistanceLabels[x].setVisible(true);
+            playerDistanceFields[x].setVisible(true);
+        }
+        for (int x = count + 1; x < 4; x++) {
+            playerDistanceLabels[x].setVisible(false);
+            playerDistanceFields[x].setVisible(false);
+        }
     }
 
     public void showGridSize() {
@@ -223,7 +243,7 @@ public class ConfigurationPanel extends JPanel {
         playerCountField.setPreferredSize(new Dimension(30, 30));
         playerCountField.setText("2");
         playerCountField.setHorizontalAlignment(JTextField.CENTER);
-        playerCountField.getDocument().addDocumentListener(getIntegerTextValidator(playerCountField, 2, 2, integer -> {
+        playerCountField.getDocument().addDocumentListener(getIntegerTextValidator(playerCountField, 2, 4, integer -> {
             if (!updatingPlayerCount) listener.onPlayerCountChange(integer - 1);
         }));
         playersPanel.add(playerCountField);
@@ -345,11 +365,11 @@ public class ConfigurationPanel extends JPanel {
             playerPanel.setBorder(new EmptyBorder(10, 0, 0, 0));
 
             // Add Label to Player Distance Panel
-            JLabel playerDistanceLabel = new JLabel();
-            playerDistanceLabel.setFont(WoodsFont.TEXT_FONT);
-            playerDistanceLabel.setPreferredSize(new Dimension(400, 35));
-            playerDistanceLabel.setText("Player " + (x + 1) + " Distance:");
-            playerPanel.add(playerDistanceLabel);
+            playerDistanceLabels[x].setFont(WoodsFont.TEXT_FONT);
+            playerDistanceLabels[x].setPreferredSize(new Dimension(400, 30));
+            playerDistanceLabels[x].setMaximumSize(new Dimension(400, 30));
+            playerDistanceLabels[x].setText("Player " + (x + 1) + " Distance:");
+            playerPanel.add(playerDistanceLabels[x]);
 
             playerPanel.add(Box.createHorizontalGlue());
 
@@ -357,6 +377,7 @@ public class ConfigurationPanel extends JPanel {
             playerDistanceFields[x].setFont(WoodsFont.TEXT_FONT);
             playerDistanceFields[x].setMaximumSize(new Dimension(50, 30));
             playerDistanceFields[x].setPreferredSize(new Dimension(50, 30));
+            playerDistanceLabels[x].setMaximumSize(new Dimension(50, 30));
             playerDistanceFields[x].setText("0");
             playerPanel.add(playerDistanceFields[x]);
 
