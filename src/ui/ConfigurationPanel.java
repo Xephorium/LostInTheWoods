@@ -198,7 +198,7 @@ public class ConfigurationPanel extends JPanel {
         playerCountField.setPreferredSize(new Dimension(30, 30));
         playerCountField.setText("2");
         playerCountField.setHorizontalAlignment(JTextField.CENTER);
-        playerCountField.getDocument().addDocumentListener(getIntegerTextValidator(playerCountField, 2, 4, integer -> {
+        playerCountField.getDocument().addDocumentListener(getIntegerTextValidator(playerCountField, 2, 2, integer -> {
             if (!updatingPlayerCount) listener.onPlayerCountChange(integer - 1);
         }));
         playersPanel.add(playerCountField);
