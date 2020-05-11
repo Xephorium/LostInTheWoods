@@ -27,6 +27,8 @@ public class GridPanel extends JPanel {
 
     public static final int DEFAULT_WIDTH = 20;
     public static final int DEFAULT_HEIGHT = 20;
+    public static final int DEFAULT_PLAYER_COUNT = 2; // Computer Science Indices *taps temple*
+    public static final int MAX_PLAYER_COUNT = 4;
     public static final Point[] DEFAULT_PLAYER_POSITIONS = {
             new Point(0, 0),
             new Point(DEFAULT_WIDTH - 1, DEFAULT_HEIGHT - 1),
@@ -36,7 +38,7 @@ public class GridPanel extends JPanel {
 
     private int width;
     private int height;
-
+    private int playerCount;
     private Point[] playerPositions;
 
     /*--- Constructor ---*/
@@ -46,7 +48,7 @@ public class GridPanel extends JPanel {
 
         this.width = DEFAULT_WIDTH;
         this.height = DEFAULT_HEIGHT;
-
+        this.playerCount = DEFAULT_PLAYER_COUNT;
         this.playerPositions = DEFAULT_PLAYER_POSITIONS;
     }
 
@@ -56,6 +58,12 @@ public class GridPanel extends JPanel {
     public void setGridSize(Point size) {
         this.width = size.x;
         this.height = size.y;
+        this.repaint();
+    }
+
+    public void setPlayerCount(int count) {
+        this.playerCount = count + 1;
+        if (this.playerCount > MAX_PLAYER_COUNT) this.playerCount = MAX_PLAYER_COUNT;
         this.repaint();
     }
 
@@ -86,7 +94,7 @@ public class GridPanel extends JPanel {
         graphics.fillRect(startX, startY, squareWidth * width, squareHeight * height);
 
         // Draw Players
-        for (int x = 0; x < 4; x++) {
+        for (int x = 0; x < playerCount; x++) {
             graphics.setColor(WoodsColor.PLAYER_COLORS[x]);
             graphics.fillRect(
                     startX +  playerPositions[x].x * squareWidth,

@@ -138,10 +138,10 @@ public class ConfigurationPanel extends JPanel {
         playerCountField.setFont(WoodsFont.TEXT_FONT);
         playerCountField.setMaximumSize(new Dimension(30, 30));
         playerCountField.setPreferredSize(new Dimension(30, 30));
-        playerCountField.setText("1");
+        playerCountField.setText("2");
         playerCountField.setHorizontalAlignment(JTextField.CENTER);
-        playerCountField.getDocument().addDocumentListener(getIntegerTextValidator(playerCountField, 1, 4, integer -> {
-            listener.onPlayerCountChange(integer);
+        playerCountField.getDocument().addDocumentListener(getIntegerTextValidator(playerCountField, 2, 4, integer -> {
+            listener.onPlayerCountChange(integer - 1);
         }));
         playersPanel.add(playerCountField);
 

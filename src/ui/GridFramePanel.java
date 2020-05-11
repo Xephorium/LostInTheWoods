@@ -49,6 +49,10 @@ public class GridFramePanel extends JPanel {
         gridPanel.setGridSize(size);
     }
 
+    public void setPlayerCount(int count) {
+        gridPanel.setPlayerCount(count);
+    }
+
 
     /*--- Private Setup Methods ---*/
 

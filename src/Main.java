@@ -44,7 +44,7 @@ public class Main {
 
             @Override
             public void onPlayerCountChange(int count) {
-                System.out.println("Players: " + count);
+                woodsWindow.setPlayerCount(count);
             }
 
             @Override
