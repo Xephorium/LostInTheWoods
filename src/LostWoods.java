@@ -14,6 +14,7 @@
  */
 
 import model.ProgramVersion;
+import model.SearchMethod;
 import simulation.Explorer;
 import simulation.WoodsSimulator;
 import ui.WoodsWindow;
@@ -33,6 +34,7 @@ public class LostWoods {
     private static final int DEFAULT_PLAYER_COUNT = 1;
     private static final int DEFAULT_GRID_WIDTH = 20;
     private static final int DEFAULT_GRID_HEIGHT = 20;
+    public static final SearchMethod DEFAULT_SEARCH_METHOD = SearchMethod.Randomly;
 
     // Delegation Classes
     WoodsSimulator woodsSimulator;
@@ -43,6 +45,7 @@ public class LostWoods {
     int speedFactor;
     int playerCount;
     Point gridSize;
+    SearchMethod searchMethod;
     ArrayList<Explorer> explorers;
 
 
@@ -61,6 +64,7 @@ public class LostWoods {
         speedFactor = DEFAULT_SPEED_FACTOR;
         playerCount = DEFAULT_PLAYER_COUNT;
         gridSize = new Point(DEFAULT_GRID_WIDTH, DEFAULT_GRID_HEIGHT);
+        searchMethod = DEFAULT_SEARCH_METHOD;
         explorers = generateStartingExplorers(gridSize, playerCount);
     }
 
@@ -93,6 +97,7 @@ public class LostWoods {
 
             @Override
             public void onVersionChange(ProgramVersion version) {
+                onStop();
                 programVersion = version;
                 woodsWindow.setProgramVersion(programVersion);
             }
@@ -133,8 +138,10 @@ public class LostWoods {
             }
 
             @Override
-            public void onSearchMethodChange(int index) {
-                System.out.println("Search Method: " + index);
+            public void onSearchMethodChange(SearchMethod method) {
+                onStop();
+                searchMethod = method;
+                System.out.println(searchMethod);
             }
 
             @Override

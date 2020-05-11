@@ -1,6 +1,7 @@
 package ui;
 
 import model.ProgramVersion;
+import model.SearchMethod;
 import ui.utility.DialogUtility;
 import ui.utility.DisplayUtility;
 
@@ -66,6 +67,8 @@ public class WoodsWindow {
             configurationPanel.hidePlayerCount();
             configurationPanel.setGridSize(new Point(20, 20));
             configurationPanel.hideGridSize();
+            configurationPanel.hideSearchMethod();
+            configurationPanel.setSearchMethod(SearchMethod.Randomly);
 
         } else if (version == ProgramVersion.Intermediate) {
 
@@ -75,7 +78,19 @@ public class WoodsWindow {
             configurationPanel.setPlayerCount(1);
             configurationPanel.showPlayerCount();
             configurationPanel.showGridSize();
+            configurationPanel.hideSearchMethod();
+            configurationPanel.setSearchMethod(SearchMethod.Randomly);
 
+        } else {
+
+            // Set Advanced UI State
+            gridFramePanel.setPlayerCount(1);
+            configurationPanel.setProgramVersion(ProgramVersion.Advanced);
+            configurationPanel.setPlayerCount(1);
+            configurationPanel.showPlayerCount();
+            configurationPanel.showGridSize();
+            configurationPanel.showSearchMethod();
+            configurationPanel.setSearchMethod(SearchMethod.Randomly);
         }
     }
 
@@ -149,7 +164,7 @@ public class WoodsWindow {
         public void onPlayerCountChange(int count);
         public void onGridWidthChange(int width);
         public void onGridHeightChange(int height);
-        public void onSearchMethodChange(int index);
+        public void onSearchMethodChange(SearchMethod method);
         public void onStop();
         public void onStart();
     }

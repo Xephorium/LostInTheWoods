@@ -1,6 +1,7 @@
 package ui;
 
 import model.ProgramVersion;
+import model.SearchMethod;
 import ui.WoodsWindow.WoodsWindowListener;
 import ui.res.WoodsColor;
 import ui.res.WoodsFont;
@@ -42,6 +43,9 @@ public class ConfigurationPanel extends JPanel {
     private JTextField gridWidthField;
     private JLabel gridHeightLabel;
     private JTextField gridHeightField;
+    private JPanel searchPanel;
+    private JLabel searchLabel;
+    private JComboBox searchDropdown;
     private JLabel[] playerDistanceFields = {new JLabel(), new JLabel(), new JLabel(), new JLabel()};
 
     private boolean updatingPlayerCount = false;
@@ -106,6 +110,22 @@ public class ConfigurationPanel extends JPanel {
         gridHeightField.setText("" + size.y);
     }
 
+    public void showSearchMethod() {
+        searchLabel.setVisible(true);
+        searchDropdown.setVisible(true);
+        searchPanel.setBorder(new EmptyBorder(10, 0, 0, 0));
+    }
+
+    public void hideSearchMethod() {
+        searchLabel.setVisible(false);
+        searchDropdown.setVisible(false);
+        searchPanel.setBorder(new EmptyBorder(39, 0, 0, 0));
+    }
+
+    public void setSearchMethod(SearchMethod method) {
+        searchDropdown.setSelectedIndex(method.ordinal());
+    }
+
     public void setPlayerDistance(int player, int distance) {
         playerDistanceFields[player].setText("" + distance);
     }
@@ -134,7 +154,7 @@ public class ConfigurationPanel extends JPanel {
         versionPanel.add(Box.createHorizontalGlue());
 
         // Add Dropdown to Version Panel
-        String[] versions = { "Simple", "Intermediate" };
+        String[] versions = { "Simple", "Intermediate", "Advanced" };
         versionDropdown = new JComboBox<>(versions);
         versionDropdown.setSelectedIndex(0);
         versionDropdown.setFont(WoodsFont.TEXT_FONT);
@@ -283,30 +303,30 @@ public class ConfigurationPanel extends JPanel {
         rightPanel.setPreferredSize(new Dimension(400, 200));
 
         // Create Search Panel
-        JPanel searchPanel = new JPanel();
-        searchPanel.setMinimumSize(new Dimension(35, 40));
+        searchPanel = new JPanel();
         searchPanel.setBorder(new EmptyBorder(10, 0, 0, 0));
-//        searchPanel.setLayout(new BoxLayout(searchPanel, BoxLayout.X_AXIS));
-//
-//        // Add Label to Search Panel
-//        JLabel searchLabel = new JLabel();
-//        searchLabel.setFont(WoodsFont.TEXT_FONT);
-//        searchLabel.setText("Search: ");
-//        searchPanel.add(searchLabel);
-//
-//        searchPanel.add(Box.createHorizontalGlue());
-//
-//        // Add Dropdown to Movement Panel
-//        String[] searchMethods = { "Randomly", "New Locations" };
-//        JComboBox searchDropdown = new JComboBox<>(searchMethods);
-//        searchDropdown.setSelectedIndex(0);
-//        searchDropdown.setFont(WoodsFont.TEXT_FONT);
-//        searchDropdown.setMaximumSize(new Dimension(300, 35));
-//        searchDropdown.addActionListener(e -> {
-//            JComboBox dropdown = (JComboBox) e.getSource();
-//            listener.onSearchMethodChange(dropdown.getSelectedIndex());
-//        });
-//        searchPanel.add(searchDropdown);
+        searchPanel.setMinimumSize(new Dimension(35, 40));
+        searchPanel.setLayout(new BoxLayout(searchPanel, BoxLayout.X_AXIS));
+
+        // Add Label to Search Panel
+        searchLabel = new JLabel();
+        searchLabel.setFont(WoodsFont.TEXT_FONT);
+        searchLabel.setText("Search: ");
+        searchPanel.add(searchLabel);
+
+        searchPanel.add(Box.createHorizontalGlue());
+
+        // Add Dropdown to Movement Panel
+        String[] searchMethods = { "Randomly", "New Locations" };
+        searchDropdown = new JComboBox<>(searchMethods);
+        searchDropdown.setSelectedIndex(0);
+        searchDropdown.setFont(WoodsFont.TEXT_FONT);
+        searchDropdown.setMaximumSize(new Dimension(300, 35));
+        searchDropdown.addActionListener(e -> {
+            JComboBox dropdown = (JComboBox) e.getSource();
+            listener.onSearchMethodChange(SearchMethod.values()[dropdown.getSelectedIndex()]);
+        });
+        searchPanel.add(searchDropdown);
 
         // Add Movement Panel
         rightPanel.add(searchPanel);
