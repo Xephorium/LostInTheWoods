@@ -25,6 +25,7 @@ public class Main {
         //lostWoods.runSimulation();
 
         // Create Woods Window Listener
+        WoodsWindow woodsWindow = new WoodsWindow();
         WoodsWindowListener listener = new WoodsWindowListener() {
             @Override
             public void onVersionChange(int index) {
@@ -66,9 +67,7 @@ public class Main {
                 System.out.println("Start");
             }
         };
-
-        // Create WoodsWindow & Display
-        WoodsWindow woodsWindow = new WoodsWindow(listener);
+        woodsWindow.setListener(listener);
         woodsWindow.displayWindow();
     }
 }

@@ -35,8 +35,7 @@ public class WoodsWindow {
 
     /*--- Constructor ---*/
 
-    public WoodsWindow(WoodsWindowListener listener) {
-        this.listener = listener;
+    public WoodsWindow() {
 
         setGlobalLookAndFeel();
         initializeFrameAttributes();
@@ -49,6 +48,10 @@ public class WoodsWindow {
 
 
     /*--- Core WoodsWindow Functionality---*/
+
+    public void setListener(WoodsWindowListener listener) {
+        this.listener = listener;
+    }
 
     public void displayWindow() {
         frame.setVisible(true);
