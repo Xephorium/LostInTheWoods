@@ -51,6 +51,15 @@ public class GridPanel extends JPanel {
     }
 
 
+    /*--- Public Methods ---*/
+
+    public void setGridSize(Point size) {
+        this.width = size.x;
+        this.height = size.y;
+        this.repaint();
+    }
+
+
     /*--- Draw Method ---*/
 
     @Override

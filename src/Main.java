@@ -2,6 +2,8 @@ import simulation.LostWoods;
 import ui.WoodsWindow;
 import ui.WoodsWindow.WoodsWindowListener;
 
+import java.awt.*;
+
 /* Title:          Lost Woods
  * This File:      Main.java
  * Team Name:      Aerosol Strike Force
@@ -27,6 +29,9 @@ public class Main {
         // Create Woods Window Listener
         WoodsWindow woodsWindow = new WoodsWindow();
         WoodsWindowListener listener = new WoodsWindowListener() {
+            int gridWidth = 20;
+            int gridHeight = 20;
+
             @Override
             public void onVersionChange(int index) {
                 System.out.println("Version: " + index);
@@ -44,12 +49,14 @@ public class Main {
 
             @Override
             public void onGridWidthChange(int width) {
-                System.out.println("Grid Width: " + width);
+                gridWidth = width;
+                woodsWindow.setGridSize(new Point(gridWidth, gridHeight));
             }
 
             @Override
             public void onGridHeightChange(int height) {
-                System.out.println("Grid Height" + height);
+                gridHeight = height;
+                woodsWindow.setGridSize(new Point(gridWidth, gridHeight));
             }
 
             @Override

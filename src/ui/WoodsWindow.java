@@ -36,14 +36,8 @@ public class WoodsWindow {
     /*--- Constructor ---*/
 
     public WoodsWindow() {
-
         setGlobalLookAndFeel();
         initializeFrameAttributes();
-        initializeViewClasses();
-
-        frame.add(gridFramePanel, BorderLayout.PAGE_START);
-        frame.add(configurationPanel, BorderLayout.CENTER);
-        frame.add(actionPanel, BorderLayout.PAGE_END);
     }
 
 
@@ -54,7 +48,13 @@ public class WoodsWindow {
     }
 
     public void displayWindow() {
+        initializeViewClasses();
+        addViewClasses();
         frame.setVisible(true);
+    }
+
+    public void setGridSize(Point size) {
+        gridFramePanel.setGridSize(size);
     }
 
 
@@ -84,6 +84,12 @@ public class WoodsWindow {
         gridFramePanel = new GridFramePanel();
         configurationPanel = new ConfigurationPanel(listener);
         actionPanel = new ActionPanel(listener);
+    }
+
+    private void addViewClasses() {
+        frame.add(gridFramePanel, BorderLayout.PAGE_START);
+        frame.add(configurationPanel, BorderLayout.CENTER);
+        frame.add(actionPanel, BorderLayout.PAGE_END);
     }
 
 

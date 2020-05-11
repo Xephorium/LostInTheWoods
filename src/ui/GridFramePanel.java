@@ -28,6 +28,8 @@ public class GridFramePanel extends JPanel {
     private static final int BORDER_PADDING = 10;
     private static final int PANEL_HEIGHT = 450;
 
+    private GridPanel gridPanel;
+
 
     /*--- Constructor ---*/
 
@@ -41,10 +43,17 @@ public class GridFramePanel extends JPanel {
     }
 
 
+    /*--- Public Methods ---*/
+
+    public void setGridSize(Point size) {
+        gridPanel.setGridSize(size);
+    }
+
+
     /*--- Private Setup Methods ---*/
 
     private GridPanel createGridPanel() {
-        GridPanel gridPanel = new GridPanel();
+        gridPanel = new GridPanel();
         gridPanel.setPreferredSize(new Dimension(410,410));
         return gridPanel;
     }
