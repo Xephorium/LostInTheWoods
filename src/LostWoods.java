@@ -100,7 +100,15 @@ public class LostWoods {
             public void onVersionChange(ProgramVersion version) {
                 onStop();
                 programVersion = version;
+                if (programVersion == ProgramVersion.Simple) {
+                    gridSize = new Point(DEFAULT_GRID_WIDTH, DEFAULT_GRID_HEIGHT);
+                    playerCount = 1;
+                }
                 woodsWindow.setProgramVersion(programVersion);
+                woodsWindow.setGridSize(gridSize);
+                woodsWindow.setPlayerCount(playerCount);
+                woodsSimulator.setGridSize(gridSize);
+                woodsSimulator.setPlayerCount(playerCount);
             }
 
             @Override
