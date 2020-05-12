@@ -84,7 +84,7 @@ public class WoodsSimulator {
 
     public void setPlayerPositions(ArrayList<Point> positions) {
         explorers = new ArrayList<>();
-        for (int x = 0; x < 1 + 1; x++) { // playerCount + 1; x++)
+        for (int x = 0; x < playerCount + 1; x++) {
             explorers.add(new Explorer(positions.get(x).x, positions.get(x).y));
         }
     }
@@ -106,23 +106,49 @@ public class WoodsSimulator {
 
                 lastUpdate = time;
 
+                // Create Move Tracking Array
+                ArrayList<Boolean> explorerMovedFlag = new ArrayList<Boolean>();
+                for (int x = 0; x < playerCount + 1; x++) explorerMovedFlag.add(false);
+
                 // Move Explorers
-                for (int x = 0; x < 1 + 1; x++) { // playerCount + 1; x++) {
-                    if (searchMethod == SearchMethod.Randomly) {
-                        explorers.get(x).setPosition(getRandomMove(explorers.get(x).getPosition()));
-                    } else {
-                        explorers.get(x).setPosition(getNewMove(explorers.get(x)));
+                for (int x = 0; x < playerCount + 1; x++) {
+                    if (!explorerMovedFlag.get(x)) {
+                        // Determine Explorer Group
+                        ArrayList<Integer> explorerGroupIndices = new ArrayList<Integer>();
+                        explorerGroupIndices.add(x);
+                        for (int y = 0; y < playerCount + 1; y++) {
+                            if (y != x && explorers.get(x).positionEquals(explorers.get(y)) && !explorerMovedFlag.get(y)) {
+                                explorerMovedFlag.set(y, true);
+                                explorerGroupIndices.add(y);
+                            }
+                        }
+
+                        // Get Next Position
+                        Point nextPosition;
+                        if (searchMethod == SearchMethod.Randomly) {
+                            nextPosition = getRandomMove(explorers.get(x).getPosition());
+                        } else {
+                            nextPosition = getNewMove(explorers.get(x));
+                        }
+
+                        // Move Explorer Group
+                        for (Integer index : explorerGroupIndices) {
+                            explorers.get(index).setPosition(nextPosition);
+                        }
                     }
                 }
 
-                // Perform Location Check
-                if (explorers.get(0).comparePositions(explorers.get(1))) {
-                    explorersFound = true;
+                // Perform End State Check
+                explorersFound = true;
+                for (int x = 1; x < playerCount + 1; x++) {
+                    if(!explorers.get(x).positionEquals(explorers.get(0))) {
+                        explorersFound = false;
+                    }
                 }
 
                 // Update UI
                 ArrayList<Point> positions = new ArrayList<Point>();
-                for (int x = 0; x < 1 + 1; x++) { // playerCount + 1; x++) {
+                for (int x = 0; x < playerCount + 1; x++) {
                     positions.add(explorers.get(x).getPosition());
                 }
                 listener.onUpdate(positions);
