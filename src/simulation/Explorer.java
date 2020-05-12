@@ -70,7 +70,7 @@ public class Explorer {
         return visits;
     }
 
-    public boolean positionEquals(Explorer explorer) {
+    public boolean comparePositions(Explorer explorer) {
         return explorer.getPosition().equals(this.getPosition());
     }
 }

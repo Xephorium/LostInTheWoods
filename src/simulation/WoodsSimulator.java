@@ -115,12 +115,9 @@ public class WoodsSimulator {
                     }
                 }
 
-                // Perform End State Check
-                explorersFound = true;
-                for (int x = 1; x < 1 + 1; x++) { // playerCount + 1; x++) {
-                    if(!explorers.get(x).positionEquals(explorers.get(0))) {
-                        explorersFound = false;
-                    }
+                // Perform Location Check
+                if (explorers.get(0).comparePositions(explorers.get(1))) {
+                    explorersFound = true;
                 }
 
                 // Update UI
