@@ -33,8 +33,6 @@ public class WoodsSimulator {
     // State Variables
     private WoodsSimulatorListener listener;
     private Random random;
-    private long lastUpdate = 0;
-    private long endTime = 0;
     private int timeFactor = 1;
     private int gridWidth;
     private int gridHeight;
