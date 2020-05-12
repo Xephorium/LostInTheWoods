@@ -1,6 +1,5 @@
 package ui;
 
-import javafx.scene.control.DialogEvent;
 import model.ProgramVersion;
 import model.SearchMethod;
 import ui.utility.DialogUtility;

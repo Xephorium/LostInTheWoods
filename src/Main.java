@@ -1,10 +1,3 @@
-import model.ProgramVersion;
-import simulation.WoodsSimulator;
-import ui.WoodsWindow;
-import ui.WoodsWindow.WoodsWindowListener;
-
-import java.awt.*;
-import java.util.ArrayList;
 
 /* Title:          Lost Woods
  * This File:      Main.java

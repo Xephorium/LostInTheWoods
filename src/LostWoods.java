@@ -18,7 +18,6 @@ import model.SearchMethod;
 import simulation.Explorer;
 import simulation.WoodsSimulator;
 import ui.WoodsWindow;
-import ui.utility.DialogUtility;
 
 import java.awt.*;
 import java.util.ArrayList;

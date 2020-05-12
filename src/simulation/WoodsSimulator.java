@@ -3,8 +3,6 @@ package simulation;
 import model.SearchMethod;
 
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
